@@ -9,6 +9,8 @@ namespace StateMachines
         private IState _currentState;
         private List<Transition> _anyState;
 
+        public void Exacure() => _currentState.Execute();
+
         public void SetState(IState state)
         {
             if (_currentState == state) return;
