@@ -1,28 +1,38 @@
-﻿using StateMachine.Camera;
-
-namespace States
+﻿namespace States
 {
-    public class CameraRunnerState : CameraStateMachine
+    public class CameraRunnerState : IState
     {
-        public override void ChangeStateCamera()
-        {
-            _cinamationAnimationStates.Play("RunnerCam");
-        }
+        public void OnEnter()
+        { }
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class CameraMiniGameState : CameraStateMachine
+    public class CameraMiniGameState : IState
     {
-        public override void ChangeStateCamera()
-        {
-            _cinamationAnimationStates.Play("MiniGameCam");
-        }
+        public void OnEnter()
+        { }
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class CameraIdleState : CameraStateMachine
+    public class CameraIdleState : IState
     {
-        public override void ChangeStateCamera()
-        {
-            _cinamationAnimationStates.Play("IdleCam");
-        }
+        public void OnEnter()
+        { }
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 }

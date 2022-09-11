@@ -1,50 +1,62 @@
-﻿using StateMachine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
-namespace States
+﻿namespace States
 {
-    public class SneakWalkAnimationState : AnimationStateMachine
+    public class SneakWalkAnimationState : IState
     {
-        public override void ChangeAnimationState()
-        {
-            _animator.SetTrigger("SneakWalk");
-        }
+        public void OnEnter()
+        { }
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class SneakIdleAnimationState : AnimationStateMachine
+    public class SneakIdleAnimationState : IState
     {
-        public override void ChangeAnimationState()
-        {
-            _animator.SetTrigger("SneakIdle");
-        }
+        public void OnEnter()
+        { }
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class RunnerAnimationState : AnimationStateMachine
+    public class RunnerAnimationState : IState
     {
-        public override void ChangeAnimationState()
-        {
-            _animator.SetTrigger("Run");
-        }
+        public void OnEnter()
+        { }
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class DeathAnimationState : AnimationStateMachine
+    public class DeathAnimationState : IState
     {
-        public override void ChangeAnimationState()
-        {
-            _animator.SetTrigger("Death");
-        }
+        public void OnEnter()
+        { }
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class IdleAnimationState : AnimationStateMachine
+    public class IdleAnimationState : IState
     {
-        public override void ChangeAnimationState()
-        {
-            _animator.SetTrigger("Idle");
-        }
+        public void OnEnter()
+        { }
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 }
