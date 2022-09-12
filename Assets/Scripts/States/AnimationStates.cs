@@ -1,50 +1,97 @@
-﻿using StateMachine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace States
 {
-    public class SneakWalkAnimationState : AnimationStateMachine
+    public class SneakWalkAnimationState : IState
     {
-        public override void ChangeAnimationState()
+        private Animator _animator;
+
+        public SneakWalkAnimationState(ref Animator animator)
         {
-            _animator.SetTrigger("SneakWalk");
+            _animator = animator;
         }
+
+        public void OnEnter() => _animator.SetTrigger("IdleWalk");
+
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class SneakIdleAnimationState : AnimationStateMachine
+    public class SneakIdleAnimationState : IState
     {
-        public override void ChangeAnimationState()
+        private Animator _animator;
+
+        public SneakIdleAnimationState(ref Animator animator)
         {
-            _animator.SetTrigger("SneakIdle");
+            _animator = animator;
         }
+
+        public void OnEnter() => _animator.SetTrigger("SneakIdle");
+        
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class RunnerAnimationState : AnimationStateMachine
+    public class RunnerAnimationState : IState
     {
-        public override void ChangeAnimationState()
+        private Animator _animator;
+
+        public RunnerAnimationState(ref Animator animator)
         {
-            _animator.SetTrigger("Run");
+            _animator = animator;
         }
+
+        public void OnEnter() => _animator.SetTrigger("Runner");
+
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class DeathAnimationState : AnimationStateMachine
+    public class DeathAnimationState : IState
     {
-        public override void ChangeAnimationState()
+        private Animator _animator;
+
+        public DeathAnimationState(ref Animator animator)
         {
-            _animator.SetTrigger("Death");
+            _animator = animator;
         }
+
+        public void OnEnter() => _animator.SetTrigger("Death");
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class IdleAnimationState : AnimationStateMachine
+    public class IdleAnimationState : IState
     {
-        public override void ChangeAnimationState()
+        private Animator _animator;
+
+        public IdleAnimationState(ref Animator animator)
         {
-            _animator.SetTrigger("Idle");
+            _animator = animator;
         }
+
+        public void OnEnter() => _animator.SetTrigger("Idle");
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 }

@@ -10,6 +10,9 @@ public class PlayerData
 [Serializable]
 public class PlayerMovementData
 {
+    public int PlayerHealt;
+
+    /*
     [Header("Runner")]
     public Vector2 ClampValues = new Vector2(-4, 4);
 
@@ -18,6 +21,7 @@ public class PlayerMovementData
     public float SizeUpValue = 0.025f;
     public float MaxSizeValue = 2.5f;
     public float MinSizeValue = 1f;
+    */
 
     [Space]
     [Header("Idle")]

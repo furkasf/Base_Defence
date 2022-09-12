@@ -1,9 +1,9 @@
-﻿using Cinemachine;
-using Signals;
+﻿using Signals;
 using States;
-using StateMachine.Camera;
+using Cinemachine;
+using StateMachines;
 using UnityEngine;
-using Animator = UnityEngine.Animator;
+
 
 namespace Managers
 {
@@ -13,14 +13,14 @@ namespace Managers
 
         #region Public Variables
 
-        public CinemachineStateDrivenCamera StateDrivenCamera { get => _stateDrivenCamera;}
+        public CinemachineStateDrivenCamera StateDrivenCamera { get => _stateDrivenCamera; }
         public Animator StateDrivenCameraAnimator { get => _stateDrivenCameraAnimator; }
 
         #endregion Public Variables
 
         #region Private
 
-        private CameraStateMachine _state;
+        private StateMachine _stateMachine;
         private Transform _player;
         private Animator _stateDrivenCameraAnimator;
         private CinemachineStateDrivenCamera _stateDrivenCamera;
@@ -67,19 +67,11 @@ namespace Managers
         {
         }
 
-        private void onTranslateCameraState(CameraStateMachine state)
-        {
-            _state = state;
-            _state.SetContext(ref _stateDrivenCameraAnimator);
-            _state.ChangeStateCamera();
-        }
+       
 
         private void Init()
         {
-            _stateDrivenCameraAnimator = GetComponent<Animator>();
-            _stateDrivenCamera = GetComponent<CinemachineStateDrivenCamera>();
-            _stateDrivenCamera.LookAt = _player;
-            onTranslateCameraState(new CameraIdleState());
+            
         }
 
         /// <summary>

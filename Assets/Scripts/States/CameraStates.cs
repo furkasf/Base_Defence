@@ -1,28 +1,76 @@
-﻿using StateMachine.Camera;
+﻿using UnityEngine;
 
 namespace States
 {
-    public class CameraRunnerState : CameraStateMachine
+    public class CameraRunnerState : IState
     {
-        public override void ChangeStateCamera()
+        private Animator _animator;
+
+        public CameraRunnerState(ref Animator animator)
         {
-            _cinamationAnimationStates.Play("RunnerCam");
+            _animator = animator;
         }
+
+        public void OnEnter() => _animator.SetTrigger("RunnerCam");
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class CameraMiniGameState : CameraStateMachine
+    public class CameraTurretControlState : IState
     {
-        public override void ChangeStateCamera()
+        private Animator _animator;
+
+        public CameraTurretControlState(ref Animator animator)
         {
-            _cinamationAnimationStates.Play("MiniGameCam");
+            _animator = animator;
         }
+
+        public void OnEnter() => _animator.SetTrigger("TurretCam");
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 
-    public class CameraIdleState : CameraStateMachine
+    public class CameraMiniGameState : IState
     {
-        public override void ChangeStateCamera()
+        private Animator _animator;
+
+        public CameraMiniGameState(ref Animator animator)
         {
-            _cinamationAnimationStates.Play("IdleCam");
+            _animator = animator;
         }
+
+        public void OnEnter() => _animator.SetTrigger("MiniGameCam");
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
+    }
+
+    public class CameraIdleState : IState
+    {
+        private Animator _animator;
+
+        public CameraIdleState(ref Animator animator)
+        {
+            _animator = animator;
+        }
+
+        public void OnEnter() => _animator.SetTrigger("IdleCam");
+
+        public void OnExit()
+        { }
+
+        public void Execute()
+        { }
     }
 }
