@@ -29,28 +29,28 @@ namespace GenericPoolSystem
 
        
         //add items in directory
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
+        public void AddObjectPool<T>(Func<T> factoryMethod, Action turnOnCallback, Action turnOffCallback, int initialStock = 0, bool isDynamic = true)
         {
             if(!_pools.ContainsKey(typeof(T)+"ByType"))
                 _pools.Add(typeof(T) + "ByType", new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
         }
         
         //add list to direcctory
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, string poolName, int initialStock = 0, bool isDynamic = true)
+        public void AddObjectPool<T>(Func<T> factoryMethod, Action turnOnCallback, Action turnOffCallback, string poolName, int initialStock = 0, bool isDynamic = true)
         {
             if (!_pools.ContainsKey(poolName))
                 _pools.Add(poolName, new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
         }
 
         
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, List<T> initialStock, bool isDynamic = true) where T : AbstractObjectPool, new()
+        public void AddObjectPool<T>(Func<T> factoryMethod, Action turnOnCallback, Action turnOffCallback, List<T> initialStock, bool isDynamic = true) where T : AbstractObjectPool, new()
         {
             if (!_pools.ContainsKey(typeof(T) + "ByType"))
                 _pools.Add(typeof(T) + "ByType", new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
         }
 
         
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, List<T> initialStock, string poolName, bool isDynamic = true) where T : AbstractObjectPool, new()
+        public void AddObjectPool<T>(Func<T> factoryMethod, Action turnOnCallback, Action turnOffCallback, List<T> initialStock, string poolName, bool isDynamic = true) where T : AbstractObjectPool, new()
         {
             if (!_pools.ContainsKey(poolName))
                 _pools.Add(poolName, new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
@@ -88,7 +88,7 @@ namespace GenericPoolSystem
             return ((ObjectPool<T>)_pools[typeof(T) + "ByType"]).GetObject();
         }
 
-       
+
         public T GetObject<T>(string poolName)
         {
             return ((ObjectPool<T>)_pools[poolName]).GetObject();
@@ -116,6 +116,12 @@ namespace GenericPoolSystem
         public void RemovePool(string poolName)
         {
             _pools[poolName] = null;
+        }
+
+        //GetPool Size test purpos
+        public void GetPoolSize()
+        {
+            //itareate key and pool sizes
         }
     }
 }
