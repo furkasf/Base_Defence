@@ -10,6 +10,7 @@ namespace Signals
     {
         public static Func<string, GameObject> onGetObjectFormPool;
         public static Func<string, int> onGetPoolCurrentSize;
-        public static Action<GameObject> onPutObjectBackToPool;
+        public static Func<string, bool> onGetPoolIsDynamic;
+        public static Action<GameObject, string> onPutObjectBackToPool;
     }
 }

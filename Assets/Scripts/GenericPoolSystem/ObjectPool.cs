@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace GenericPoolSystem
 {
@@ -9,15 +8,18 @@ namespace GenericPoolSystem
     {
         #region Self Variables
 
+        #region Private Variables
+
         private readonly Queue<T> _currentStock;
         private readonly bool _isDynamic;
         private readonly Func<T> _factoryMethod;
         private readonly Action<T> _turnOnCallback;
         private readonly Action<T> _turnOffCallback;
 
+        #endregion Private Variables
+
         #endregion Self Variables
 
-        
         public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
         {
             _factoryMethod = factoryMethod;
@@ -33,11 +35,10 @@ namespace GenericPoolSystem
                 var o = _factoryMethod();
                 _turnOffCallback(o);
                 _currentStock.Enqueue(o);
-                UnityEngine.Debug.Log("ss");
+                UnityEngine.Debug.Log("IsCreated");
             }
         }
 
-       
         public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, Queue<T> initialStock, bool isDynamic = true)
         {
             _factoryMethod = factoryMethod;
@@ -49,7 +50,6 @@ namespace GenericPoolSystem
             _currentStock = initialStock;
         }
 
-        //get object from pool
         public T GetObject()
         {
             var result = default(T);
@@ -67,7 +67,6 @@ namespace GenericPoolSystem
             return result;
         }
 
-        //get active object and put in pool
         public void ReturnObject(T o)
         {
             _turnOffCallback(o);
@@ -76,5 +75,6 @@ namespace GenericPoolSystem
 
         public override int GetPoolCurrentSize() => _currentStock.Count;
 
+        public override bool GetPoolIsDynamic() => _isDynamic;
     }
 }
