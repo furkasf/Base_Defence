@@ -1,97 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Signals;
+using Enums;
 using UnityEngine;
-using UnityEngine.AI;
+using System;
 
 namespace Managers
 {
     public class SpawnManager : MonoBehaviour
     {
-
-        public List<Transform> Targets;
-        public int NumberOfEnemiesToSpawn = 5;
-        public float SpawnDelay = 1f;
-       
-        private NavMeshTriangulation Triangulation;
-        
-
-        private void Awake()
-        {
-            //invoke a spawn method and cheack 
-        }
-        /*
         private void Start()
         {
-            Triangulation = NavMesh.CalculateTriangulation();
-
-            StartCoroutine(SpawnEnemies());
+            EnemySpawner(PoolAbleType.Money.ToString());
         }
 
-        private IEnumerator SpawnEnemies()
+        //test putpose
+        private void EnemySpawner(string key)
         {
-            WaitForSeconds Wait = new WaitForSeconds(SpawnDelay);
-
-            int SpawnedEnemies = 0;
-
-            while (SpawnedEnemies < NumberOfEnemiesToSpawn)
-            {
-                if (EnemySpawnMethod == SpawnMethod.RoundRobin)
-                {
-                    SpawnRoundRobinEnemy(SpawnedEnemies);
-                }
-                else if (EnemySpawnMethod == SpawnMethod.Random)
-                {
-                    SpawnRandomEnemy();
-                }
-
-                SpawnedEnemies++;
-
-                yield return Wait;
-            }
+            if (PoolSignals.onGetPoolCurrentSize(key) <= 0) return;
+            GameObject _gameObject = PoolSignals.onGetObjectFormPool(key);
+            _gameObject.transform.parent = transform;
         }
+        ///intastiate pool item con store in list for deque in when level reseted
+        ///
 
-        private void SpawnRoundRobinEnemy(int SpawnedEnemies)
+        private void OnDisable()
         {
-            int SpawnIndex = SpawnedEnemies % EnemyPrefabs.Count;
-
-            DoSpawnEnemy(SpawnIndex);
+            //add deque all active pool item
         }
-
-        private void SpawnRandomEnemy()
-        {
-            DoSpawnEnemy(Random.Range(0, EnemyPrefabs.Count));
-        }
-
-        private void DoSpawnEnemy(int SpawnIndex)
-        {
-            PoolableObject poolableObject = EnemyObjectPools[SpawnIndex].GetObject();
-
-            if (poolableObject != null)
-            {
-                Enemy enemy = poolableObject.GetComponent<Enemy>();
-
-                int VertexIndex = Random.Range(0, Triangulation.vertices.Length);
-
-                NavMeshHit Hit;
-                if (NavMesh.SamplePosition(Triangulation.vertices[VertexIndex], out Hit, 2f, -1))
-                {
-                    enemy.Agent.Warp(Hit.position);
-                    // enemy needs to get enabled and start chasing now.
-                    enemy.Movement.Player = Player;
-                    enemy.Agent.enabled = true;
-                    enemy.Movement.StartChasing();
-                }
-                else
-                {
-                    Debug.LogError($"Unable to place NavMeshAgent on NavMesh. Tried to use {Triangulation.vertices[VertexIndex]}");
-                }
-            }
-            else
-            {
-                Debug.LogError($"Unable to fetch enemy of type {SpawnIndex} from object pool. Out of objects?");
-            }
-        }
-        */
-
     }
 }

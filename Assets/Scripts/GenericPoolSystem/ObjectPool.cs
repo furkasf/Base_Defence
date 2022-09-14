@@ -74,5 +74,7 @@ namespace GenericPoolSystem
             _currentStock.Enqueue(o);
         }
 
+        public override int GetPoolCurrentSize() => _currentStock.Count;
+
     }
 }

@@ -26,6 +26,7 @@ namespace GenericPoolSystem
         {
             PoolSignals.onGetObjectFormPool += OnGetObjectFormPool;
             PoolSignals.onPutObjectBackToPool += OnPutObjectBackToPool;
+            PoolSignals.onGetPoolCurrentSize += OnGetPoolCurrentSize;
         }
 
         private void UnSubscribe()
@@ -33,6 +34,7 @@ namespace GenericPoolSystem
 
             PoolSignals.onGetObjectFormPool -= OnGetObjectFormPool;
             PoolSignals.onPutObjectBackToPool -= OnPutObjectBackToPool;
+            PoolSignals.onGetPoolCurrentSize -= OnGetPoolCurrentSize;
         }
 
         private void OnDisable()
@@ -62,6 +64,11 @@ namespace GenericPoolSystem
         private void OnPutObjectBackToPool(GameObject gameObject)
         {
             _poolManager.ReturnObject<GameObject>(gameObject);
+        }
+
+        private int OnGetPoolCurrentSize(string poolKey)
+        {
+            return _poolManager.PoolCurrentSize(poolKey);
         }
     }
 }

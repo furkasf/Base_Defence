@@ -116,5 +116,10 @@ namespace GenericPoolSystem
         {
             _pools[poolName] = null;
         }
+
+        public int PoolCurrentSize(string poolName)
+        {
+            return _pools[poolName].GetPoolCurrentSize();
+        }
     }
 }
