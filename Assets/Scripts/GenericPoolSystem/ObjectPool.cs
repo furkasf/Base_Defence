@@ -9,7 +9,7 @@ namespace GenericPoolSystem
     {
         #region Self Variables
 
-        private readonly List<T> _currentStock;
+        private readonly Queue<T> _currentStock;
         private readonly bool _isDynamic;
         private readonly Func<T> _factoryMethod;
         private readonly Action<T> _turnOnCallback;
@@ -26,19 +26,19 @@ namespace GenericPoolSystem
             _turnOffCallback = turnOffCallback;
             _turnOnCallback = turnOnCallback;
 
-            _currentStock = new List<T>();
+            _currentStock = new Queue<T>();
 
             for (var i = 0; i < initialStock; i++)
             {
                 var o = _factoryMethod();
                 _turnOffCallback(o);
-                _currentStock.Add(o);
+                _currentStock.Enqueue(o);
                 UnityEngine.Debug.Log("ss");
             }
         }
 
        
-        public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, List<T> initialStock, bool isDynamic = true)
+        public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, Queue<T> initialStock, bool isDynamic = true)
         {
             _factoryMethod = factoryMethod;
             _isDynamic = isDynamic;
@@ -55,9 +55,8 @@ namespace GenericPoolSystem
             var result = default(T);
             if (_currentStock.Count > 0)
             {
-                result = _currentStock[0];
+                result = _currentStock.Dequeue();
                 _turnOnCallback(result);
-                _currentStock.RemoveAt(0);
             }
             else if (_isDynamic)
             {
@@ -72,7 +71,7 @@ namespace GenericPoolSystem
         public void ReturnObject(T o)
         {
             _turnOffCallback(o);
-            _currentStock.Add(o);
+            _currentStock.Enqueue(o);
         }
 
     }
