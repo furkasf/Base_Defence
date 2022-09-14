@@ -10,8 +10,8 @@ namespace Data.UnityObject
         public int InitialSize;
         public bool IsExtensible;
 
-        public virtual void ActivatePrefab() => Prefab.SetActive(true);
-        public virtual void DeactivatePrefab() => Prefab.SetActive(false);
+        public virtual void ActivatePrefab(GameObject gameObject) => gameObject.SetActive(true);
+        public virtual void DeactivatePrefab(GameObject gameObject) => gameObject.SetActive(false);
         public virtual GameObject PrefabFactory() => GameObject.Instantiate(Prefab);
     }
 }

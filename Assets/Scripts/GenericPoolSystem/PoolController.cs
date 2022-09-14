@@ -1,4 +1,5 @@
 ﻿using Data.UnityObject;
+using Signals;
 using UnityEngine;
 
 namespace GenericPoolSystem
@@ -14,9 +15,36 @@ namespace GenericPoolSystem
             initializePool();
         }
 
+        #region Subscriptions
+
+        private void OnEnable()
+        {
+            Subscribe();
+        }
+
+        private void Subscribe()
+        {
+            PoolSignals.onGetObjectFormPool += OnGetObjectFormPool;
+            PoolSignals.onPutObjectBackToPool += OnPutObjectBackToPool;
+        }
+
+        private void UnSubscribe()
+        {
+
+            PoolSignals.onGetObjectFormPool -= OnGetObjectFormPool;
+            PoolSignals.onPutObjectBackToPool -= OnPutObjectBackToPool;
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribe();
+        }
+
+        #endregion Subscriptions
+
         private void GetPoolData() => PoolData = Resources.Load<CD_Pools>("Data/CD_Pools");
 
-        public void initializePool()
+        private void initializePool()
         {
             _poolManager = new ObjectPoolManager();
 
@@ -26,12 +54,12 @@ namespace GenericPoolSystem
             }
         }
 
-        public GameObject GetObjectFormPool(string poolKey)
+        private GameObject OnGetObjectFormPool(string poolKey)
         {
             return _poolManager.GetObject<GameObject>(poolKey);
         }
 
-        public void PutObjectBackToPool(GameObject gameObject)
+        private void OnPutObjectBackToPool(GameObject gameObject)
         {
             _poolManager.ReturnObject<GameObject>(gameObject);
         }

@@ -12,13 +12,13 @@ namespace GenericPoolSystem
         private readonly List<T> _currentStock;
         private readonly bool _isDynamic;
         private readonly Func<T> _factoryMethod;
-        private readonly Action _turnOnCallback;
-        private readonly Action _turnOffCallback;
+        private readonly Action<T> _turnOnCallback;
+        private readonly Action<T> _turnOffCallback;
 
         #endregion Self Variables
 
         
-        public ObjectPool(Func<T> factoryMethod, Action turnOnCallback, Action turnOffCallback, int initialStock = 0, bool isDynamic = true)
+        public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
         {
             _factoryMethod = factoryMethod;
             _isDynamic = isDynamic;
@@ -31,14 +31,14 @@ namespace GenericPoolSystem
             for (var i = 0; i < initialStock; i++)
             {
                 var o = _factoryMethod();
-                _turnOffCallback();
+                _turnOffCallback(o);
                 _currentStock.Add(o);
                 UnityEngine.Debug.Log("ss");
             }
         }
 
        
-        public ObjectPool(Func<T> factoryMethod, Action turnOnCallback, Action turnOffCallback, List<T> initialStock, bool isDynamic = true)
+        public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, List<T> initialStock, bool isDynamic = true)
         {
             _factoryMethod = factoryMethod;
             _isDynamic = isDynamic;
@@ -56,13 +56,13 @@ namespace GenericPoolSystem
             if (_currentStock.Count > 0)
             {
                 result = _currentStock[0];
-                _turnOnCallback();
+                _turnOnCallback(result);
                 _currentStock.RemoveAt(0);
             }
             else if (_isDynamic)
             {
                 result = _factoryMethod();
-                _turnOnCallback();
+                _turnOnCallback(result);
             }
 
             return result;
@@ -71,7 +71,7 @@ namespace GenericPoolSystem
         //get active object and put in pool
         public void ReturnObject(T o)
         {
-            _turnOffCallback();
+            _turnOffCallback(o);
             _currentStock.Add(o);
         }
 
