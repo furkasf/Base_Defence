@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace StateMachines
 {
-    public class StateMachine
+    public class StateMachine2
     {
         private IState _currentState;
         private List<Transition> _anyState;
@@ -32,7 +32,7 @@ namespace StateMachines
             return null;
         }
 
-        ~StateMachine()
+        ~StateMachine2()
         {
             _anyState.Clear();
             _currentState = null;

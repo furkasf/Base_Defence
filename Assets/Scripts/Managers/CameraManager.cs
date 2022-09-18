@@ -20,7 +20,7 @@ namespace Managers
 
         #region Private
 
-        private StateMachine _stateMachine;
+        private StateMachine2 _stateMachine;
         private Transform _player;
         private Animator _stateDrivenCameraAnimator;
         private CinemachineStateDrivenCamera _stateDrivenCamera;

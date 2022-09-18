@@ -12,7 +12,7 @@ namespace FSM
         {
             if(Decide.Decide(stateMachine) && !(TrueState is RemainInState))
                 stateMachine.CurrentState = TrueState;
-            else if(!(FalseState is RemainInState))
+            else if(!Decide.Decide(stateMachine) && !(FalseState is RemainInState))
                 stateMachine.CurrentState = FalseState;
         }
     }
