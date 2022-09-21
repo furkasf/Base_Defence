@@ -16,25 +16,22 @@ namespace Managers
 
         [Header("Data")] public InputData Data;
 
-        #endregion Public Variables
+        #endregion
 
         #region Serialized Variables
 
         [SerializeField] private bool isReadyForTouch, isFirstTimeTouchTaken;
-
-        #endregion Serialized Variables
+        [SerializeField] private FloatingJoystick floatingJoystick;
+        #endregion
 
         #region Private Variables
 
         private bool _isTouching;
+        private Vector3 _moveVector;
 
-        private float _currentVelocity; //ref type
-        private Vector2? _mousePosition; //ref type
-        private Vector3 _moveVector; //ref type
+        #endregion
 
-        #endregion Private Variables
-
-        #endregion Self Variables
+        #endregion
 
         private void Awake()
         {
@@ -43,7 +40,7 @@ namespace Managers
 
         private InputData GetInputData() => Resources.Load<CD_Input>("Data/CD_Input").InputData;
 
-        #region Event Subscriptions
+        #region Event Subscription
 
         private void OnEnable()
         {
@@ -71,19 +68,18 @@ namespace Managers
             UnsubscribeEvents();
         }
 
-        #endregion Event Subscriptions
+        #endregion
 
-        private void Update()
+        void Update()
         {
             if (!isReadyForTouch) return;
-
-            if (Input.GetMouseButtonUp(0) && !IsPointerOverUIElement())
+            if (Input.GetMouseButtonUp(0))
             {
                 _isTouching = false;
                 InputSignals.Instance.onInputReleased?.Invoke();
             }
 
-            if (Input.GetMouseButtonDown(0) && !IsPointerOverUIElement())
+            if (Input.GetMouseButtonDown(0))
             {
                 _isTouching = true;
                 InputSignals.Instance.onInputTaken?.Invoke();
@@ -92,61 +88,25 @@ namespace Managers
                     isFirstTimeTouchTaken = true;
                     InputSignals.Instance.onFirstTimeTouchTaken?.Invoke();
                 }
-
-                _mousePosition = Input.mousePosition;
             }
 
-            if (Input.GetMouseButton(0) && !IsPointerOverUIElement())
+            if (Input.GetMouseButton(0))
             {
                 if (_isTouching)
                 {
-                    if (_mousePosition != null)
+                    InputSignals.Instance.onInputDragged?.Invoke(new InputParams()
                     {
-                        Vector2 mouseDeltaPos = (Vector2)Input.mousePosition - _mousePosition.Value;
-
-                        if (mouseDeltaPos.x > Data.HorizontalInputSpeed)
-                            _moveVector.x = Data.HorizontalInputSpeed / 10f * mouseDeltaPos.x;
-                        else if (mouseDeltaPos.x < -Data.HorizontalInputSpeed)
-                            _moveVector.x = -Data.HorizontalInputSpeed / 10f * -mouseDeltaPos.x;
-                        else
-                            _moveVector.x = Mathf.SmoothDamp(_moveVector.x, 0f, ref _currentVelocity,
-                                Data.ClampSpeed);
-
-                        _mousePosition = Input.mousePosition;
-
-                        InputSignals.Instance.onInputDragged?.Invoke(new HorizontalInputParams()
-                        {
-                            XValue = _moveVector.x,
-                            ClampValues = new Vector2(Data.ClampSides.x, Data.ClampSides.y)
-                        });
-                    }
+                        movementVector = new Vector3(floatingJoystick.Horizontal, 0, floatingJoystick.Vertical)
+                    });
                 }
             }
         }
 
-        private void OnEnableInput()
-        {
-            isReadyForTouch = true;
-        }
+        private void OnEnableInput() => isReadyForTouch = true;
 
-        private void OnDisableInput()
-        {
-            isReadyForTouch = false;
-        }
+        private void OnDisableInput() => isReadyForTouch = false;
 
-        private void OnPlay()
-        {
-            isReadyForTouch = true;
-        }
-
-        private bool IsPointerOverUIElement()
-        {
-            var eventData = new PointerEventData(EventSystem.current);
-            eventData.position = Input.mousePosition;
-            var results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, results);
-            return results.Count > 0;
-        }
+        private void OnPlay() => isReadyForTouch = true;
 
         private void OnReset()
         {

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7ba4d4147c2c194faad9c0b85d385d8, type: 3}
+  m_Name: EnemyTransition1
+  m_EditorClassIdentifier: 
+  Decide: {fileID: 11400000, guid: ec94b885b50580948b3b5cf6a9d26d2d, type: 2}
+  TrueState: {fileID: 11400000, guid: 234d80c601664c2469212a290ab39204, type: 2}
+  FalseState: {fileID: 11400000, guid: d8a07a2a7887d6140b442a9274c71add, type: 2}

@@ -9,15 +9,17 @@ namespace Managers
     {
         private void Start()
         {
-            EnemySpawner(PoolAbleType.Money.ToString());
+            Invoke("EnemySpawner", 1f);
         }
 
         //test putpose
-        private void EnemySpawner(string key)
+        private void EnemySpawner()
         {
+            string key = PoolAbleType.Money.ToString();
             if (PoolSignals.onGetPoolCurrentSize(key) <= 0) return;
             GameObject _gameObject = PoolSignals.onGetObjectFormPool(key);
             _gameObject.transform.parent = transform;
+            _gameObject.transform.position = transform.position;
         }
         ///intastiate pool item con store in list for deque in when level reseted
         ///

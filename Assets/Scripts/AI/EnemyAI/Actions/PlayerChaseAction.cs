@@ -1,4 +1,5 @@
-﻿using Assets.TestScripts;
+﻿using Assets.Scripts.Managers;
+using Assets.TestScripts;
 using FSM;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,16 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.AI.EnemyAI.Actions
 {
-    [CreateAssetMenu(menuName = "FSM/Decision/PlayerChaseAction")]
+    [CreateAssetMenu(menuName = "FSM/Action/Enemy/PlayerChaseAction")]
     public class PlayerChaseAction : FSMAction
     {
-        public override void Execure(BaseStateMachine stateMachine)
+        public override void Execute(BaseStateMachine stateMachine)
         {
+            Debug.Log("player in chese state");
+            var player = stateMachine.GetComponent<EnemyManager>();
             var agent = stateMachine.GetComponent<NavMeshAgent>();
-            var control = stateMachine.GetComponent<DistanceControl>();
-            agent.SetDestination(control.GetRandomPosition());
+            agent.SetDestination(player.PlayerPossition.position);
+            
         }
     }
 }

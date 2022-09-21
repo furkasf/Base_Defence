@@ -4,6 +4,6 @@ namespace FSM
 {
     public abstract class FSMAction : ScriptableObject
     {
-        public abstract void Execure(BaseStateMachine stateMachine);
+        public abstract void Execute(BaseStateMachine stateMachine);
     }
 }

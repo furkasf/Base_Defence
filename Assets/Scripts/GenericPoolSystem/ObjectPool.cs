@@ -35,7 +35,6 @@ namespace GenericPoolSystem
                 var o = _factoryMethod();
                 _turnOffCallback(o);
                 _currentStock.Enqueue(o);
-                UnityEngine.Debug.Log("IsCreated");
             }
         }
 
