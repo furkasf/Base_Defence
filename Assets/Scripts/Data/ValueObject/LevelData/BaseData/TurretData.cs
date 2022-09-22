@@ -10,6 +10,8 @@ namespace Data.ValueObject
         public bool TurretHasSolder;
         public int TurretCapacity;
         public int TurretDamage;
-        public ParticleSystem TurretPartical;
+        public int TurretAreaPayedAmouth;
+        public int TurretAreaPrice = 100;
+        
     }
 }

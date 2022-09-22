@@ -32,5 +32,7 @@ namespace Assets.Scripts.Managers
         #endregion
 
         public Vector3 OnGetRandomWaypoint() => targetWaypoints[Random.RandomRange(0, targetWaypoints.Count)].position;
+
+        //pass data to sava able entitest
     }
 }
