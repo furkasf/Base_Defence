@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using Enums;
 using Managers;
+using Assets.Scripts.Signals;
 
 namespace Assets.Scripts.Controllers
 {
@@ -28,7 +29,7 @@ namespace Assets.Scripts.Controllers
         {
             if(SaveAndLoadManager.CheackFileExist(gameObject.name))
             {
-                data = (TurretData)SaveAndLoadManager.Load<TurretData>(gameObject.name);
+                data = (TurretData)SaveAndLoadManager.Load<TurretData>(gameObject.name + ScoreSignals.Instance.onGetLevel().ToString());
                 _payedAmouth = data.TurretAreaPayedAmouth;
                 return;
             }
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Controllers
         private void Save()
         {
             data.TurretAreaPayedAmouth = _payedAmouth;
-            SaveAndLoadManager.Save(data, gameObject.name);
+            SaveAndLoadManager.Save(data, gameObject.name + ScoreSignals.Instance.onGetLevel().ToString());
         }
 
         private void CheackTurretAreaIsAcrtive()
@@ -85,7 +86,7 @@ namespace Assets.Scripts.Controllers
         }
         private void OnTriggerStay(Collider other)
         {
-            if(other.CompareTag("Player") && !data.IsActive)
+            if(other.CompareTag("Player") && !data.IsActive && ScoreSignals.Instance.onGetMoney() > 0)
             {
                 _payedAmouth++;
                 Debug.Log(_payedAmouth);

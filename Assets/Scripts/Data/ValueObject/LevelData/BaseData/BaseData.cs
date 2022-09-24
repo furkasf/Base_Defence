@@ -8,6 +8,6 @@ namespace Data.ValueObject
         public BaseRoomDatas RoomData;
         public MineBaseData MineData;
         public MilitaryBaseData MilitaryData;
-        public BuyablesData BuyablesData;
+        public AmmoWorkerData BuyablesData;
     }
 }

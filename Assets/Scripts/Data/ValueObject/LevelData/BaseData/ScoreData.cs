@@ -4,5 +4,6 @@
     {
         public int MoneyScore;
         public int DiomondScore;
+        public int Level = 1;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Data.ValueObject;
+﻿using Assets.Scripts.Signals;
+using Data.ValueObject;
 using Interfaces;
 using Managers;
 using System.Collections;
@@ -9,11 +10,11 @@ namespace Controllers
 {
     public class RoomAreaController : MonoBehaviour , ISaveAble
     {
-        [SerializeField] RoomData data;
-        [SerializeField] GameObject roomLock;
-        [SerializeField] GameObject room;
-        [SerializeField] GameObject roomUnlockArea;
-        [SerializeField] TMP_Text text;
+        [SerializeField] private RoomData data;
+        [SerializeField] private GameObject roomLock;
+        [SerializeField] private GameObject room;
+        [SerializeField] private GameObject roomUnlockArea;
+        [SerializeField] private TMP_Text text;
 
         private int _payedAmouth;
 
@@ -24,9 +25,9 @@ namespace Controllers
 
         public void Load()
         {
-            if (SaveAndLoadManager.CheackFileExist(gameObject.name))
+            if (SaveAndLoadManager.CheackFileExist(gameObject.name + ScoreSignals.Instance.onGetLevel().ToString()))
             {
-                data = (RoomData)SaveAndLoadManager.Load<RoomData>(gameObject.name);
+                data = (RoomData)SaveAndLoadManager.Load<RoomData>(gameObject.name + ScoreSignals.Instance.onGetLevel().ToString());
                 _payedAmouth = data.RoomPayedAmouth;
                 return;
             }
@@ -40,7 +41,7 @@ namespace Controllers
         private void Save()
         {
             data.RoomPayedAmouth = _payedAmouth;
-            SaveAndLoadManager.Save(data, gameObject.name);
+            SaveAndLoadManager.Save(data, gameObject.name + ScoreSignals.Instance.onGetLevel().ToString()) ;
         }
 
         private void RoomIsOpened()
@@ -75,7 +76,7 @@ namespace Controllers
 
         private void OnTriggerStay(Collider other)
         {
-            if(other.CompareTag("Player"))
+            if(other.CompareTag("Player") && ScoreSignals.Instance.onGetMoney() > 0)
             {
                 _payedAmouth++;
                 text.text = (data.RoomCost - _payedAmouth).ToString();

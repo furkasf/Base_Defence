@@ -52,9 +52,7 @@ namespace Assets.Scripts.Managers
             InputSignals.Instance.onInputReleased += OnInputReleased;
             InputSignals.Instance.onInputDragged += OnInputDragged;
 
-            /*PlayerSignals.Instance.onIsPlayerMoving += OnCanBuy;
-            PlayerSignals.Instance.onGetPlayerTransfrom += OnGetPlayerTransform;
-            PlayerSignals.Instance.onGetPlayerSpeed += OnGetPlayerSpeed;*/
+         
         }
 
         private void UnsubscribeEvents()
@@ -66,10 +64,7 @@ namespace Assets.Scripts.Managers
             InputSignals.Instance.onInputReleased -= OnInputReleased;
             InputSignals.Instance.onInputDragged -= OnInputDragged;
 
-            /*
-            PlayerSignals.Instance.onIsPlayerMoving -= OnCanBuy;
-            PlayerSignals.Instance.onGetPlayerTransfrom -= OnGetPlayerTransform;
-            PlayerSignals.Instance.onGetPlayerSpeed -= OnGetPlayerSpeed;*/
+         
         }
 
         private void OnDisable()

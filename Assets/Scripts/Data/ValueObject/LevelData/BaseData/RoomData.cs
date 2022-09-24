@@ -5,8 +5,7 @@ namespace Data.ValueObject
     [Serializable]
     public class RoomData
     {
-        public int RoomCost;
+        public int RoomCost = 100;
         public int RoomPayedAmouth;
-        public TurretData TurretData;
     }
 }
