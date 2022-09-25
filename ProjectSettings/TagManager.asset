@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - EnemyBaseTarget
+  - Miner
+  - Solder
+  - MoneyWorker
+  - AmmoWorker
+  - Boss
   layers:
   - Default
   - TransparentFX

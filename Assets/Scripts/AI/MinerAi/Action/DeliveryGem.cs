@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Managers;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.MinerAi.Action
@@ -8,7 +9,10 @@ namespace Assets.Scripts.AI.MinerAi.Action
     {
         public override void Execute(BaseStateMachine stateMachine)
         {
-            Debug.Log("delivert state");
+            var manager = stateMachine.GetComponent<MinerManager>();
+            manager.DeliverGemToStack();
         }
     }
+
+    
 }

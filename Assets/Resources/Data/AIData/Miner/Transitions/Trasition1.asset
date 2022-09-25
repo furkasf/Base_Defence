@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7ba4d4147c2c194faad9c0b85d385d8, type: 3}
-  m_Name: MinerTransition2
+  m_Name: Trasition1
   m_EditorClassIdentifier: 
-  Decide: {fileID: 0}
-  TrueState: {fileID: 0}
-  FalseState: {fileID: 0}
+  Decide: {fileID: 11400000, guid: b6076e8a5b0a37447aae1ea685344b95, type: 2}
+  TrueState: {fileID: 11400000, guid: e89df2e0b6738364c90189a30a2d3650, type: 2}
+  FalseState: {fileID: 11400000, guid: d8a07a2a7887d6140b442a9274c71add, type: 2}

@@ -13,7 +13,7 @@ namespace FSM
         {
             foreach (var action in Actions)
                 action.Execute(stateMachine);
-            foreach (var transition in Transitions)
+            foreach (Transition transition in Transitions)
                 transition.Execute(stateMachine);
         }
     }

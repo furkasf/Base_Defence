@@ -1,36 +1,61 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 namespace Managers
 {
     public class MinerManager : MonoBehaviour
     {
-        public Transform MinePossition;
-        public Transform MineDeliveryTarget;
-        public bool MineIsEnd;
-        public NavMeshAgent Agent;
+        public bool MineAnimation { get => _mineAnimationIsDone; }
+        public NavMeshAgent Agent { get => _agent; }
+        public GameObject Diamond;
+        public GameObject PickAxe;
+
+
+        [SerializeField] Transform MinePossition;
+        [SerializeField] Transform MineDeliveryTarget;
+      
+        private bool _mineAnimationIsDone;
+        private bool _gemCarryAnimation;
+
+        private NavMeshAgent _agent;
+        private Animator _animator;
 
         private void Awake()
         {
-            Agent = GetComponent<NavMeshAgent>();
+            _agent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
         }
 
-        public bool MinerReachIsTarget()
+
+        public void DeliverGemToStack()
         {
-            if(Agent.remainingDistance < 0.3f)
-            {
-                return true;
-            }
-            return false;
+            Agent.isStopped = false;
+            _animator.SetTrigger("Walking");
+            Diamond.SetActive(true);
+            transform.LookAt(MineDeliveryTarget);
+            _agent.SetDestination(MineDeliveryTarget.position);
         }
 
-        //wait animdation end and mine
+        public void GoToMine()
+        {
+            Diamond.SetActive(false);
+            transform.LookAt(MinePossition);
+            _animator.SetTrigger("Walking");
+            _agent.SetDestination(MinePossition.position);
+        }
+
         public IEnumerator MineDiamond()
         {
-            Debug.Log("Mining contionue" + Time.deltaTime);
-            yield return new WaitForSecondsRealtime(2f);//wait until can use for
-            Debug.Log("mineIsEnded");
+            _mineAnimationIsDone = true;
+            Debug.Log("mining is happen");
+            _agent.SetDestination(MinePossition.position);
+            PickAxe.SetActive(true);
+            _animator.SetTrigger("Mining");
+            yield return new WaitForSecondsRealtime(1.5f);
+            _mineAnimationIsDone = false;
+            PickAxe.SetActive(false);
         }
     }
 }

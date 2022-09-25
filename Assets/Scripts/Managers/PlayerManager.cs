@@ -2,6 +2,7 @@
 using Signals;
 using Controllers;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Managers
 {
@@ -10,7 +11,7 @@ namespace Assets.Scripts.Managers
         #region Self Variables
 
         #region Seriliazed Field
-
+        [SerializeField] private List<Transform> refuges;
         [SerializeField] private Rigidbody rigidBody;
         [SerializeField] private PlayerMovementController movementController;
         /*[SerializeField] private PlayerPhysicsController physicsController;

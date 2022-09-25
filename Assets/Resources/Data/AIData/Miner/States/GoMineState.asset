@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407645e96aae0744baa16eb182def1de, type: 3}
-  m_Name: Action
+  m_Script: {fileID: 11500000, guid: c95c744c8ad731749a6b11cd4a4a8fee, type: 3}
+  m_Name: GoMineState
   m_EditorClassIdentifier: 
+  Actions:
+  - {fileID: 11400000, guid: 0ffcf4c1801081643955141d677211d4, type: 2}
+  Transitions:
+  - {fileID: 11400000, guid: 4bef9fcd597a93b4880b9be50349e79f, type: 2}

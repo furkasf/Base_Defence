@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f2184cdcb8ec8b42a8a15fe6eaaa0ee, type: 3}
-  m_Name: DeliveryGem
+  m_Script: {fileID: 11500000, guid: 865809ee83f052f44aa3e6e45bb28d69, type: 3}
+  m_Name: New Go Mine Action Base
   m_EditorClassIdentifier: 

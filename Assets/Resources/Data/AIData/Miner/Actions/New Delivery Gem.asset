@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c95c744c8ad731749a6b11cd4a4a8fee, type: 3}
-  m_Name: MineDiamond
+  m_Script: {fileID: 11500000, guid: 0f2184cdcb8ec8b42a8a15fe6eaaa0ee, type: 3}
+  m_Name: New Delivery Gem
   m_EditorClassIdentifier: 
-  Actions: []
-  Transitions: []

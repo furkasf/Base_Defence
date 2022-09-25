@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Signals;
+using Data.ValueObject;
 using Signals;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,8 +10,7 @@ namespace Assets.Scripts.Managers
 {
     public class BaseManager : MonoBehaviour
     {
-        [SerializeField] private List<Transform> targetWaypoints;
-        [SerializeField] private TMP_Text text;
+        [SerializeField] TMP_Text text;
 
         private void Start()
         {
@@ -25,12 +25,11 @@ namespace Assets.Scripts.Managers
 
         private void SubscribeEvents()
         {
-            BaseSignals.Instance.onGetRandomWaypoint += OnGetRandomWaypoint;
+           
         }
 
         private void UnsubscribeEvents()
         {
-            BaseSignals.Instance.onGetRandomWaypoint -= OnGetRandomWaypoint;
         }
 
         private void OnDisable()
@@ -39,7 +38,7 @@ namespace Assets.Scripts.Managers
         }
         #endregion
 
-        public Vector3 OnGetRandomWaypoint() => targetWaypoints[Random.RandomRange(0, targetWaypoints.Count)].position;
+      
 
     }
 }
