@@ -12,7 +12,8 @@ namespace Assets.Scripts.AI.EnemyAI.Actions
     {
         public override void Execute(BaseStateMachine stateMachine)
         {
-            Debug.Log("Enemy in Attack State");
+            var manager = stateMachine.GetComponent<EnemyManager>();
+            manager.AttackTheTarget();
         }
     }
 }

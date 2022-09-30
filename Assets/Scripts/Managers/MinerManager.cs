@@ -1,61 +1,79 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Animations.Rigging;
 
 namespace Managers
 {
     public class MinerManager : MonoBehaviour
     {
-        public bool MineAnimation { get => _mineAnimationIsDone; }
         public NavMeshAgent Agent { get => _agent; }
         public GameObject Diamond;
         public GameObject PickAxe;
+        public bool _isMiningDoneCall;
+        public bool _isDeliverGemToStackCall;
+        public bool _isMinerReachtoMineCall;
 
-
-        [SerializeField] Transform MinePossition;
-        [SerializeField] Transform MineDeliveryTarget;
-      
-        private bool _mineAnimationIsDone;
-        private bool _gemCarryAnimation;
+        [SerializeField] private Transform MinePossition;
+        [SerializeField] private Transform MineDeliveryTarget;
 
         private NavMeshAgent _agent;
         private Animator _animator;
+        private float _timer;
 
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
+            _agent.speed = _animator.speed;
         }
 
+        #region StateMachine Behaviors
 
         public void DeliverGemToStack()
         {
-            Agent.isStopped = false;
-            _animator.SetTrigger("Walking");
-            Diamond.SetActive(true);
-            transform.LookAt(MineDeliveryTarget);
-            _agent.SetDestination(MineDeliveryTarget.position);
+            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("CaryGem"))
+            {
+                _animator.SetTrigger("CaryGem");
+                Diamond.SetActive(true);
+                PickAxe.SetActive(false);
+                transform.LookAt(MineDeliveryTarget);
+                _agent.SetDestination(MineDeliveryTarget.position);
+            }
         }
 
         public void GoToMine()
         {
-            Diamond.SetActive(false);
-            transform.LookAt(MinePossition);
-            _animator.SetTrigger("Walking");
-            _agent.SetDestination(MinePossition.position);
+            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
+            {
+                Diamond.SetActive(false);
+                PickAxe.SetActive(false);
+                transform.LookAt(MinePossition);
+                _animator.SetTrigger("Walking");
+                _agent.SetDestination(MinePossition.position);
+            }
         }
+
+        // public bool MiningIsEnded() => _animator.
 
         public IEnumerator MineDiamond()
         {
-            _mineAnimationIsDone = true;
-            Debug.Log("mining is happen");
-            _agent.SetDestination(MinePossition.position);
-            PickAxe.SetActive(true);
-            _animator.SetTrigger("Mining");
-            yield return new WaitForSecondsRealtime(1.5f);
-            _mineAnimationIsDone = false;
-            PickAxe.SetActive(false);
+            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("MinigAnim"))
+            {
+                //set timer
+                _animator.SetTrigger("Mining");
+                PickAxe.SetActive(true);
+                Debug.Log("mining procces");
+                yield return new WaitForSecondsRealtime(2);
+                Debug.Log("minig is ended");
+                _isMiningDoneCall = true;
+                yield return null;
+            }
         }
+
+        #endregion StateMachine Behaviors
+
+        public bool IsMinerReachTheMines() => Vector3.Distance(transform.position, MinePossition.position) <= 2f;
+
+        public bool IsMinerReachDelivaryPoint() => Vector3.Distance(transform.position, MineDeliveryTarget.position) <= 2f;
     }
 }

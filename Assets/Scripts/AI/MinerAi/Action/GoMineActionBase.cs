@@ -10,7 +10,12 @@ namespace Assets.Scripts.AI.MinerAi.Action
         public override void Execute(BaseStateMachine stateMachine)
         {
             var manager = stateMachine.GetComponent<MinerManager>();
-            manager.GoToMine();
+            if(!manager.IsMinerReachTheMines())
+            {
+                Debug.Log("goto mine state active");
+                manager.GoToMine();
+            }
+            
         }
     }
 }

@@ -16,10 +16,8 @@ namespace Assets.Scripts.AI.EnemyAI.Actions
     {
         public override void Execute(BaseStateMachine stateMachine)
         {
-            Debug.Log("player in chese state");
-            var player = stateMachine.GetComponent<EnemyManager>();
-            var agent = stateMachine.GetComponent<NavMeshAgent>();
-            agent.SetDestination(player.PlayerPossition.position);
+            var manager = stateMachine.GetComponent<EnemyManager>();
+            manager.ChaseThePlayer();
             
         }
     }

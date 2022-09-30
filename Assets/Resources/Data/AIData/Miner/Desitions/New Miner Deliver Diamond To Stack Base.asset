@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c95c744c8ad731749a6b11cd4a4a8fee, type: 3}
-  m_Name: DeliveryState
+  m_Script: {fileID: 11500000, guid: 1778eb9232ea818499aa418af1fcf1a0, type: 3}
+  m_Name: New Miner Deliver Diamond To Stack Base
   m_EditorClassIdentifier: 
-  Actions:
-  - {fileID: 11400000, guid: 701c7eff84d4eea4e88fa357438dd8ce, type: 2}
-  Transitions:
-  - {fileID: 11400000, guid: 4b214c69b4ec6464e8b032cd4a057f2e, type: 2}

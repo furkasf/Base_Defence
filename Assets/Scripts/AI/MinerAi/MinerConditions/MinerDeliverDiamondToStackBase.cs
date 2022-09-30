@@ -1,20 +1,21 @@
 ﻿using FSM;
 using Managers;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.MinerAi.MinerConditions
 {
-    [CreateAssetMenu(menuName = "FSM/Decision/Miner/MiningIsEnd")]
-    public class MiningIsEnd : Decision
+    [CreateAssetMenu(menuName = "FSM/Decision/Miner/MinerDeliverDiamondToStack")]
+    public class MinerDeliverDiamondToStackBase : Decision
     {
         public override bool Decide(BaseStateMachine stateMachine)
         {
             var manager = stateMachine.GetComponent<MinerManager>();
-            if(manager._isMiningDoneCall)
+            if ((manager.Agent.remainingDistance) <= 2 && manager.Agent.hasPath)
             {
-                manager._isMiningDoneCall = false;
                 return true;
             }
+            Debug.Log("Miner goes to Mine");
             return false;
         }
     }

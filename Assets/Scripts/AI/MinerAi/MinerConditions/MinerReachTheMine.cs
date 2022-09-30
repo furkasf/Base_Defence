@@ -11,14 +11,15 @@ namespace Assets.Scripts.AI.MinerAi.MinerConditions
         public override bool Decide(BaseStateMachine stateMachine)
         {
             var manager = stateMachine.GetComponent<MinerManager>();
-            if((manager.Agent.remainingDistance ) <= 2 && manager.Agent.hasPath)
+            if (manager.IsMinerReachTheMines())
             {
                 Debug.Log("Miner Reach The Mine");
-                manager.Agent.isStopped = true;
+                
                 return true;
             }
             Debug.Log("Miner goes to Mine");
             return false;
         }
     }
+
 }

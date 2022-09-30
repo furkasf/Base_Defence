@@ -1,4 +1,5 @@
-﻿using FSM;
+﻿using Assets.Scripts.Managers;
+using FSM;
 using Signals;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,8 @@ namespace Assets.Scripts.AI.EnemyAI.Actions
     {
         public override void Execute(BaseStateMachine stateMachine)
         {
-            var agent = stateMachine.GetComponent<NavMeshAgent>();
-            if (!agent.hasPath)
-            {
-                Debug.Log("target added");
-                agent.SetDestination(BaseSignals.Instance.onGetRandomWaypoint());
-            }
+            var manager = stateMachine.GetComponent<EnemyManager>();
+            manager.MoveToTargetPoint();
             
         }
     }
