@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Controllers;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,7 +28,7 @@ namespace Managers
             _agent.speed = _animator.speed;
         }
 
-        #region StateMachine Behaviors
+        #region Actions
 
         public void DeliverGemToStack()
         {
@@ -38,6 +39,8 @@ namespace Managers
                 PickAxe.SetActive(false);
                 transform.LookAt(MineDeliveryTarget);
                 _agent.SetDestination(MineDeliveryTarget.position);
+                Debug.Log("remain distance " + Agent.remainingDistance);
+                Debug.Log("passed way between player " + Vector3.Distance(transform.position, MineDeliveryTarget.position));
             }
         }
 
@@ -60,20 +63,24 @@ namespace Managers
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("MinigAnim"))
             {
                 //set timer
+                Agent.isStopped = true;
                 _animator.SetTrigger("Mining");
                 PickAxe.SetActive(true);
                 Debug.Log("mining procces");
                 yield return new WaitForSecondsRealtime(2);
-                Debug.Log("minig is ended");
+                Agent.isStopped = false;
                 _isMiningDoneCall = true;
-                yield return null;
             }
         }
 
-        #endregion StateMachine Behaviors
+        #endregion Actions
+
+        #region Conditions
 
         public bool IsMinerReachTheMines() => Vector3.Distance(transform.position, MinePossition.position) <= 2f;
 
         public bool IsMinerReachDelivaryPoint() => Vector3.Distance(transform.position, MineDeliveryTarget.position) <= 2f;
+
+        #endregion Conditions
     }
 }

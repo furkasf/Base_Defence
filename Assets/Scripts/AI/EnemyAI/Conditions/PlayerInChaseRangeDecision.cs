@@ -12,10 +12,12 @@ namespace Assets.Scripts.AI.EnemyAI.Conditions
     {
         public override bool Decide(BaseStateMachine stateMachine)
         {
-            var player = stateMachine.GetComponent<EnemyManager>();
-            var agent = stateMachine.GetComponent<NavMeshAgent>();
-            Debug.Log(player.CheackDistanceWithPlayer());
-            return player.CheackDistanceWithPlayer();
+            var manager = stateMachine.GetComponent<EnemyManager>();
+            if(manager.CheackDistanceWithPlayer())
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

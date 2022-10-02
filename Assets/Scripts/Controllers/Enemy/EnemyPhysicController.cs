@@ -11,19 +11,15 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player") || other.CompareTag("EnemyBaseTarget"))
+            if(other.CompareTag("Bullet"))
             {
-                //trigger attack state
-                manager.IsPlayerAttackable = true;
+               //put bullet to pool
+               other.gameObject.SetActive(false);
+                //call damage funtion from manager
+                manager.GetDamage();
             }
+           
         }
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Player") || other.CompareTag("EnemyBaseTarget"))
-            {
-                //trigger attack state
-                manager.IsPlayerAttackable = false;
-            }
-        }
+        
     }
 }

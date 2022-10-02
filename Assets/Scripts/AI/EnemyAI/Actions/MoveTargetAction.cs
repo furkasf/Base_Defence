@@ -1,13 +1,6 @@
 ﻿using Assets.Scripts.Managers;
 using FSM;
-using Signals;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Assets.Scripts.AI.EnemyAI.Actions
 {
@@ -18,7 +11,6 @@ namespace Assets.Scripts.AI.EnemyAI.Actions
         {
             var manager = stateMachine.GetComponent<EnemyManager>();
             manager.MoveToTargetPoint();
-            
         }
     }
 }

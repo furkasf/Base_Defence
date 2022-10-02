@@ -7,12 +7,12 @@ namespace FSM
     public class BaseStateMachine : MonoBehaviour
     {
         public BaseState CurrentState { get; set; }
-        [SerializeField] private BaseState _initialState;
+        [SerializeField] private BaseState initialState;
         private Dictionary<Type, Component> _cachedComponents;
 
         private void Awake()
         {
-            CurrentState = _initialState;
+            CurrentState = initialState;
             _cachedComponents = new Dictionary<Type, Component>();
         }
 
@@ -22,7 +22,7 @@ namespace FSM
             CurrentState.Execute(this);
         }
 
-        public void ResetCurrentState() => CurrentState = _initialState;
+        public void ResetCurrentState() => CurrentState = initialState;
 
         public new T GetComponent<T>() where T : Component
         {

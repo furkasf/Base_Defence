@@ -1712,7 +1712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d49cb7bd3d3274088a8693d5870722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialState: {fileID: 11400000, guid: 410020b7237707349ac176e40be92c6b, type: 2}
+  initialState: {fileID: 11400000, guid: 410020b7237707349ac176e40be92c6b, type: 2}
 --- !u!1 &5989224779343420796
 GameObject:
   m_ObjectHideFlags: 0
