@@ -10,6 +10,8 @@ TagManager:
   - MoneyWorker
   - AmmoWorker
   - Boss
+  - Bullet
+  - Money
   layers:
   - Default
   - TransparentFX
