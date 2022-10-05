@@ -13,6 +13,4 @@ MonoBehaviour:
   m_Name: CD_Pools
   m_EditorClassIdentifier: 
   Pools:
-  - {fileID: 11400000, guid: 18a2fdf8c31baec40a52f0e74715136b, type: 2}
-  - {fileID: 11400000, guid: bfa0faf87a4a8914b954a1cb2493ce04, type: 2}
   - {fileID: 11400000, guid: 53aa13641274e3441bc271567959064b, type: 2}

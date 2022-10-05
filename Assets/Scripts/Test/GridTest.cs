@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Test
 {
-    public class GridTest : MonoBehaviour
+    public class GridTest
     {
-        public Stack<Transform> _stack = new Stack<Transform> ();
+        public Stack<Transform> _stack = new Stack<Transform>();
         public Transform _holder;
         public const int StackCap = 3;
         public int _stackOffsetY;
         public int _stackOffsetZ;
 
-        private void Awake()
+        public GridTest(Transform holder)
         {
-            //_holder.position = new Vector3(_holder.position.x, _stackOffsetY, _stackOffsetZ);
+            _holder = holder;
         }
 
         private void AddStackToHolder(Transform o)
@@ -26,18 +21,20 @@ namespace Assets.Scripts.Test
             o.parent = _holder;
         }
 
-        private void AddStack(Transform o)
+        public void AddStack(Transform o)
         {
             AddStackToHolder(o);
-            if(_stackOffsetY < StackCap)
+            if (_stackOffsetY < StackCap)
             {
+                o.tag = "Untagged";
                 _stack.Push(o);
-                o.localPosition = new Vector3 (0, _stackOffsetY, _stackOffsetZ);
+                o.localPosition = new Vector3(0, _stackOffsetY, _stackOffsetZ);
                 _stackOffsetY++;
                 return;
             }
-            else if(_stackOffsetY >= StackCap)
+            else if (_stackOffsetY >= StackCap)
             {
+                o.tag = "Untagged";
                 _stack.Push(o);
                 _stackOffsetY = 0;
                 _stackOffsetZ++;
@@ -47,29 +44,38 @@ namespace Assets.Scripts.Test
             }
         }
 
-        private void RemoveStack()
+        public void RemoveStack()
         {
-            Debug.Log("before pop : " + _stack.Count);
-            Transform stack = _stack.Pop ();
-            Debug.Log("after pop : " + _stack.Count);
+            if (_stack.Count == 0) return;
+            Transform stack = _stack.Pop();
+            if (_stackOffsetY == 0)
+            {
+                _stackOffsetY = StackCap - 1;
+                _stackOffsetZ--;
+                stack.gameObject.SetActive(false);//test purpose
+                return;
+            }
+            _stackOffsetY--;
             stack.gameObject.SetActive(false);//test purpose
         }
 
-        private void OnTriggerStay(Collider other)
+        public void RemoveAllStack()
         {
-            if(other.CompareTag("StackContainer") && CompareTag("Player"))
+            foreach(var stack in _stack)
             {
-                RemoveStack();
+                if (_stack.Count == 0) return;
+                Transform _transform = _stack.Pop();
+                if (_stackOffsetY == 0)
+                {
+                    _stackOffsetY = StackCap - 1;
+                    _stackOffsetZ--;
+                    _transform.gameObject.SetActive(false);//test purpose
+                    return;
+                }
+                _stackOffsetY--;
+                _transform.gameObject.SetActive(false);//test purpose
             }
         }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if(other.CompareTag("Money"))
-            {
-                other.tag = null;
-                AddStack(other.transform);
-            }
-        }
+        
     }
 }

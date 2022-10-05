@@ -12,6 +12,8 @@ TagManager:
   - Boss
   - Bullet
   - Money
+  - StackContainer
+  - Base
   layers:
   - Default
   - TransparentFX

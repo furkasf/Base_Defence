@@ -1125,6 +1125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5390412f3783534aaa74b361613a956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  refuges: []
   rigidBody: {fileID: 1429127690}
   movementController: {fileID: 1429127691}
 --- !u!136 &1429127693

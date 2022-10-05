@@ -46,7 +46,7 @@ namespace GenericPoolSystem
 
         #endregion Subscriptions
 
-        private void GetPoolData() => PoolData = Resources.Load<CD_Pools>("Data/CD_Pools");
+        private void GetPoolData() => PoolData = Resources.Load<CD_Pools>("Data/PoolData/CD_Pools");
 
         private void initializePool()
         {
@@ -54,9 +54,11 @@ namespace GenericPoolSystem
 
             foreach (var pool in PoolData.Pools)
             {
-                _poolManager.AddObjectPool(pool.PrefabFactory, pool.ActivatePrefab, pool.DeactivatePrefab, pool.Key, pool.InitialSize, pool.IsExtensible);
+                _poolManager.AddObjectPool(pool.PrefabFactory, pool.ActivatePrefab, pool.DeactivatePrefab, PutPoolObjectToHolder, pool.Key, pool.InitialSize, pool.IsExtensible);
             }
         }
+
+        private void PutPoolObjectToHolder(GameObject gameObject) => gameObject.transform.parent = transform;
 
         private GameObject OnGetObjectFormPool(string poolKey)
         {

@@ -159,7 +159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6618047401871221281
 Transform:
   m_ObjectHideFlags: 0
@@ -322,14 +322,13 @@ MonoBehaviour:
   turretPrefab: {fileID: 3041111203094255071}
   turretBuyArea: {fileID: 1268764585670792307}
   text: {fileID: 3044670705109693680}
-  _data:
+  data:
     IsActive: 0
     TurretHasSolder: 0
     TurretCapacity: 0
     TurretDamage: 0
     TurretAreaPayedAmouth: 0
     TurretAreaPrice: 100
-    TurretPartical: {fileID: 0}
 --- !u!1 &6299584602962210123
 GameObject:
   m_ObjectHideFlags: 0
