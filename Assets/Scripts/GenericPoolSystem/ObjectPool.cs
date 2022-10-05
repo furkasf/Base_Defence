@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace GenericPoolSystem
 {
@@ -9,22 +8,18 @@ namespace GenericPoolSystem
     {
         #region Self Variables
 
-        private readonly List<T> _currentStock;
+        #region Private Variables
+
+        private readonly Queue<T> _currentStock;
         private readonly bool _isDynamic;
         private readonly Func<T> _factoryMethod;
         private readonly Action<T> _turnOnCallback;
         private readonly Action<T> _turnOffCallback;
 
+        #endregion Private Variables
+
         #endregion Self Variables
 
-        /// <summary>
-        ///we set our datas from constructor for read to set our pools
-        /// </summary>
-        /// <param name="factoryMethod">whick use to construct object</param>
-        /// <param name="turnOnCallback">activate passive object </param>
-        /// <param name="turnOffCallback">disactive active object</param>
-        /// <param name="initialStock">start initial size pool for in start</param>
-        /// <param name="isDynamic">use to set that list is resize able or not</param>
         public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
         {
             _factoryMethod = factoryMethod;
@@ -33,18 +28,18 @@ namespace GenericPoolSystem
             _turnOffCallback = turnOffCallback;
             _turnOnCallback = turnOnCallback;
 
-            _currentStock = new List<T>();
+            _currentStock = new Queue<T>();
 
             for (var i = 0; i < initialStock; i++)
             {
                 var o = _factoryMethod();
                 _turnOffCallback(o);
-                _currentStock.Add(o);
+                _currentStock.Enqueue(o);
+                UnityEngine.Debug.Log("IsCreated");
             }
         }
 
-        //initialize pool with given list
-        public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, List<T> initialStock, bool isDynamic = true)
+        public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, Queue<T> initialStock, bool isDynamic = true)
         {
             _factoryMethod = factoryMethod;
             _isDynamic = isDynamic;
@@ -55,15 +50,13 @@ namespace GenericPoolSystem
             _currentStock = initialStock;
         }
 
-        //get object from pool
         public T GetObject()
         {
             var result = default(T);
             if (_currentStock.Count > 0)
             {
-                result = _currentStock[0];
-                // _turnOnCallback(result);
-                _currentStock.RemoveAt(0);
+                result = _currentStock.Dequeue();
+                _turnOnCallback(result);
             }
             else if (_isDynamic)
             {
@@ -74,21 +67,15 @@ namespace GenericPoolSystem
             return result;
         }
 
-        //get active object and put in pool
         public void ReturnObject(T o)
         {
             _turnOffCallback(o);
-            _currentStock.Add(o);
+            _currentStock.Enqueue(o);
         }
-    }
 
-    class Genetic<K, F>
-    {
-        K getdedault(K data)
-        {
-            var rsult = default(K);
-            rsult = (data != null) ? data : default(K);
-            return rsult;
-        }
+        public override int GetPoolCurrentSize() => _currentStock.Count;
+
+        public override bool GetPoolIsDynamic() => _isDynamic;
     }
 }
+//call bqck in callback
