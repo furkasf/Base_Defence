@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b62d185278d466e46b97618ac5af64a5, type: 3}
   m_Name: CD_MoneyPool
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 5718994066168035408, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
+  Prefab: {fileID: 1845606373062477845, guid: 89ac8564bc1e0ed48a995271d33b86b2, type: 3}
   Key: Money
   InitialSize: 30
   IsExtensible: 0

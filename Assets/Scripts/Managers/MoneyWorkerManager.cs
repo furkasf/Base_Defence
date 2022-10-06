@@ -48,7 +48,7 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        public void SearchMoney() => _sphereCollider.radius = 5f; //ideal value is 5
+        public void SearchMoney() => _sphereCollider.radius = 20f;
 
         public void GotoMoney()
         {
