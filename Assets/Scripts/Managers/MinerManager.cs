@@ -1,4 +1,4 @@
-﻿using Controllers;
+﻿using Signals;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,8 +14,8 @@ namespace Managers
         public bool _isDeliverGemToStackCall;
         public bool _isMinerReachtoMineCall;
 
-        [SerializeField] private Transform MinePossition;
-        [SerializeField] private Transform MineDeliveryTarget;
+        [SerializeField] private Transform _minerTarget;
+        [SerializeField] private Transform _mineDeliveryTarget;
 
         private NavMeshAgent _agent;
         private Animator _animator;
@@ -28,6 +28,12 @@ namespace Managers
             _agent.speed = _animator.speed;
         }
 
+        private void Start()
+        {
+            _mineDeliveryTarget = MinerBaseSignals.Instance.onGetMineStorage?.Invoke();
+            _minerTarget = MinerBaseSignals.Instance.onGetRandomMine?.Invoke();
+        }
+
         #region Actions
 
         public void DeliverGemToStack()
@@ -37,10 +43,8 @@ namespace Managers
                 _animator.SetTrigger("CaryGem");
                 Diamond.SetActive(true);
                 PickAxe.SetActive(false);
-                transform.LookAt(MineDeliveryTarget);
-                _agent.SetDestination(MineDeliveryTarget.position);
-                Debug.Log("remain distance " + Agent.remainingDistance);
-                Debug.Log("passed way between player " + Vector3.Distance(transform.position, MineDeliveryTarget.position));
+                transform.LookAt(_mineDeliveryTarget);
+                _agent.SetDestination(_mineDeliveryTarget.position);
             }
         }
 
@@ -50,13 +54,11 @@ namespace Managers
             {
                 Diamond.SetActive(false);
                 PickAxe.SetActive(false);
-                transform.LookAt(MinePossition);
+                transform.LookAt(_minerTarget);
                 _animator.SetTrigger("Walking");
-                _agent.SetDestination(MinePossition.position);
+                _agent.SetDestination(_minerTarget.position);
             }
         }
-
-        // public bool MiningIsEnded() => _animator.
 
         public IEnumerator MineDiamond()
         {
@@ -77,9 +79,9 @@ namespace Managers
 
         #region Conditions
 
-        public bool IsMinerReachTheMines() => Vector3.Distance(transform.position, MinePossition.position) <= 2f;
+        public bool IsMinerReachTheMines() => Vector3.Distance(transform.position, _minerTarget.position) <= 2f;
 
-        public bool IsMinerReachDelivaryPoint() => Vector3.Distance(transform.position, MineDeliveryTarget.position) <= 2f;
+        public bool IsMinerReachDelivaryPoint() => Vector3.Distance(transform.position, _mineDeliveryTarget.position) <= 2f;
 
         #endregion Conditions
     }

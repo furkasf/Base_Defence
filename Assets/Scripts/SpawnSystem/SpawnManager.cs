@@ -9,13 +9,13 @@ namespace Assets.Scripts.SpawnSystem
 {
     public class SpawnManager : MonoBehaviour
     {
-        [SerializeField] private List<ISpawner> abstractSpawners;
+        [SerializeField] private List<AbstractSpawner> abstractSpawners;
 
         private void Start() => ActivateSpawners();
 
         public void ActivateSpawners()
         {
-            foreach(ISpawner spawner in abstractSpawners)
+            foreach(AbstractSpawner spawner in abstractSpawners)
             {
                 StartCoroutine(spawner.Spawn());
             }

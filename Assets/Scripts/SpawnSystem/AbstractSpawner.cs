@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.SpawnSystem
 {
-    public abstract class ISpawner : MonoBehaviour
+    public abstract class AbstractSpawner : MonoBehaviour
     {
         public abstract IEnumerator Spawn();
     }

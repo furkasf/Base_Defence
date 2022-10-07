@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.SpawnSystem 
 {
-    public class Spawner : ISpawner
+    public class Spawner : AbstractSpawner
     {
 
         [SerializeField] PoolAbleType _type;

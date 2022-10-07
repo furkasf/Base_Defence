@@ -1,4 +1,5 @@
 using Data.ValueObject;
+using Signals;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,33 +10,40 @@ namespace Managers
     public class MineAreaManager : MonoBehaviour
     {
         [SerializeField] private List<Transform> Minepositions;
-        [SerializeField] private List<Transform> miners;
         [SerializeField] private Transform mineStorage;
         [SerializeField] private Transform mineWagon;
-        [SerializeField] private TMP_Text text;
 
         private MineBaseData data;
 
-        private void GetMiner(Transform miner)
+        #region subscription
+        private void OnEnable()
         {
-            if (!miners.Contains(miner) && data.CurrentWorkerNumber <= data.MaxWorkerNumber)
-            {
-                miners.Add(miner);
-                data.CurrentWorkerNumber += 1;
-                text.text = data.MaxWorkerNumber.ToString() + " / " + data.CurrentWorkerNumber.ToString();
-            }
+            SubscribeEvents();
         }
 
-        private void AsignMinerToMine()
+        private void SubscribeEvents()
         {
-            for (int i = 0; i < Minepositions.Count; i++)
-            {
-                if (i >= miners.Count)
-                {
-                    break;
-                }
-                miners[i] = Minepositions[i];
-            }
+            MinerBaseSignals.Instance.onGetMineStorage += OnGetMineStorage;
+            MinerBaseSignals.Instance.onGetWagon += OnGetWagon;
+            MinerBaseSignals.Instance.onGetRandomMine += OnGetRandomMine;
         }
+
+        private void UnsubscribeEvents()
+        {
+
+            MinerBaseSignals.Instance.onGetMineStorage -= OnGetMineStorage;
+            MinerBaseSignals.Instance.onGetWagon -= OnGetWagon;
+            MinerBaseSignals.Instance.onGetRandomMine -= OnGetRandomMine;
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+        #endregion
+
+        private Transform OnGetMineStorage() => mineStorage;
+        private Transform OnGetWagon() => mineWagon;
+        private Transform OnGetRandomMine() => Minepositions[Random.Range(0, Minepositions.Count)];
     }
 }
