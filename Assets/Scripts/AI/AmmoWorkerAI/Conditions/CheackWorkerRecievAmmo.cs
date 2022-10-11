@@ -10,7 +10,12 @@ namespace Assets.Scripts.AI.AmmoWorkerAI.Conditions
         public override bool Decide(BaseStateMachine stateMachine)
         {
             var manager = stateMachine.GetComponent<AmmoWorkerManager>();
-            return manager.CheackAmmoIsTaken();
+           if(manager.CheackAmmoIsTaken())
+            {
+                manager.RemoveAllAmmoFromStack();
+                return true;
+            }
+            return false;
         }
     }
 }

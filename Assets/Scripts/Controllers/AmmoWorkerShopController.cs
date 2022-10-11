@@ -1,20 +1,17 @@
 ﻿using Assets.Scripts.Signals;
 using Data.ValueObject;
-using Enums;
 using Interfaces;
 using Managers;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
-    public class AmmoWorkerShopController : MonoBehaviour , ISaveAble
+    public class AmmoWorkerShopController : MonoBehaviour, ISaveAble
     {
-        [SerializeField] GameObject workerBuyArea;
-        [SerializeField] AmmoWorkerData data;
-        [SerializeField] TMP_Text text;
-
+        [SerializeField] private GameObject workerBuyArea;
+        [SerializeField] private AmmoWorkerData data;
+        [SerializeField] private TMP_Text text;
 
         private int _totalCreatedWorkerCount = 0;//by default
         private int _payedAmouth;
@@ -46,7 +43,7 @@ namespace Assets.Scripts.Controllers
 
         private void BuyNewWorker()
         {
-            if(_payedAmouth >= data.AmmoWorkerCost)
+            if (_payedAmouth >= data.AmmoWorkerCost)
             {
                 _totalCreatedWorkerCount++;
                 _payedAmouth = 0;

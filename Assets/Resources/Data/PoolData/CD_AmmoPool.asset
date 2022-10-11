@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e5c35fa1989314db353eeb3fa05e76, type: 3}
+  m_Name: CD_AmmoPool
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 5495938375531215040, guid: 45775c9401a6a2244aa8711639ad2dd9, type: 3}
+  Key: Ammo
+  InitialSize: 25
+  IsExtensible: 1

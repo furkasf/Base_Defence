@@ -10,7 +10,7 @@ namespace Signals
         public Func<Transform> onGetMineStorage;
         public Func<Transform> onGetWagon;
         public Func<Transform> onGetRandomMine;
-
+        public Action<Transform> onSendDiamondToStack;
 
     }
 }

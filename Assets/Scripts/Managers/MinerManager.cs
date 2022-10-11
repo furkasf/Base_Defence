@@ -1,4 +1,5 @@
-﻿using Signals;
+﻿using Enums;
+using Signals;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -84,5 +85,16 @@ namespace Managers
         public bool IsMinerReachDelivaryPoint() => Vector3.Distance(transform.position, _mineDeliveryTarget.position) <= 2f;
 
         #endregion Conditions
+
+        #region Utality
+
+        public void SendDiamondToStack()
+        {
+            GameObject _gameObject = PoolSignals.onGetObjectFormPool(PoolAbleType.Diamond.ToString());
+            _gameObject.transform.position = Diamond.transform.position;
+            MinerBaseSignals.Instance.onSendDiamondToStack(_gameObject.transform);
+        }
+
+        #endregion Utality
     }
 }

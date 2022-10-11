@@ -13,4 +13,12 @@ MonoBehaviour:
   m_Name: CD_Pools
   m_EditorClassIdentifier: 
   Pools:
+  - {fileID: 11400000, guid: 8162c5d0d7e184a4399f6b726931a676, type: 2}
+  - {fileID: 11400000, guid: 8934db439a7c9da4bba71285047ea5c7, type: 2}
+  - {fileID: 11400000, guid: 8fa22683534adeb4a9cfedfc01991f43, type: 2}
+  - {fileID: 11400000, guid: 177b6a9f1c0a8c544af28ff3d061a04e, type: 2}
+  - {fileID: 11400000, guid: d47f4f55fe92662428013952d8329e6b, type: 2}
+  - {fileID: 11400000, guid: 0dbec46568ce5064796a021c679a3fc0, type: 2}
+  - {fileID: 11400000, guid: a20f3a5f8db27ec4a954e13e04010462, type: 2}
   - {fileID: 11400000, guid: 53aa13641274e3441bc271567959064b, type: 2}
+  - {fileID: 11400000, guid: 5615f47e286ef8840823d9043e2d5588, type: 2}

@@ -21,13 +21,13 @@ namespace Assets.Scripts.Managers
         public Transform _moneyPosition;
         private NavMeshAgent _agent;
         private SphereCollider _sphereCollider;
-        private GridTest _stack;
+        private StackManager _stack;
 
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
             _sphereCollider = GetComponent<SphereCollider>();
-            _stack = new GridTest(_stackHolder);
+            _stack = new StackManager(_stackHolder);
         }
 
         #region Actions

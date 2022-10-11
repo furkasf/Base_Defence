@@ -1616,7 +1616,7 @@ GameObject:
   - component: {fileID: 1920160139817947357}
   - component: {fileID: 213062188828132543}
   - component: {fileID: 213062188828132544}
-  - component: {fileID: 403900572672168599}
+  - component: {fileID: 4106706358346521573}
   m_Layer: 0
   m_Name: MoneyWorker
   m_TagString: MoneyWorker
@@ -1674,7 +1674,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1697,7 +1697,8 @@ MonoBehaviour:
   baseLocation: {fileID: 0}
   outsideLocation: {fileID: 0}
   _stackHolder: {fileID: 5449111136286769945}
-  physicController: {fileID: 403900572672168599}
+  physicController: {fileID: 4106706358346521573}
+  _moneyPosition: {fileID: 0}
 --- !u!135 &213062188828132543
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1724,7 +1725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialState: {fileID: 11400000, guid: 98638a1fc1a450e4b8824e990948c3e3, type: 2}
---- !u!114 &403900572672168599
+--- !u!114 &4106706358346521573
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
