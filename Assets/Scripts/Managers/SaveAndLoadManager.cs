@@ -12,6 +12,30 @@ namespace Managers
         public static Dictionary<string, object> SaveDatas;
 
         //write funtion wihch delete all save file in direrctory
+        public static void RemoveAllFile()
+        {
+            if(SaveDatas == null)
+            {
+                Debug.Log("there is mo save file in directory");
+            }
+            foreach(var key in SaveDatas.Keys)
+            {
+                File.Delete(Application.persistentDataPath + "/" + key);
+            }
+        }
+
+        public static void RemoveFile(string fileName)
+        {
+            foreach (var key in SaveDatas.Keys)
+            {
+                if(fileName == key)
+                {
+                    File.Delete(Application.persistentDataPath + "/" + key);
+                    return;
+                }
+            }
+            Debug.Log("there is mo save file in directory");
+        }
 
         public static void GetAllSaveFile()
         {

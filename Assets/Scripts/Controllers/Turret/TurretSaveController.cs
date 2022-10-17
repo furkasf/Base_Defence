@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Signals;
 using Data.ValueObject;
-using Enums;
 using Interfaces;
 using Managers;
 using TMPro;
@@ -8,18 +7,18 @@ using UnityEngine;
 
 namespace Assets.Scripts.Controllers.Turret
 {
-    public class TurretSaveController : MonoBehaviour , ISaveAble
+    public class TurretSaveController : MonoBehaviour, ISaveAble
     {
-        public BuyStates State = BuyStates.Buyed;
 
-        [SerializeField] GameObject turretPrefab;
-        [SerializeField] GameObject turretBuyArea;
-        [SerializeField] TMP_Text text;
-        [SerializeField] TurretData data;
+        [SerializeField] private GameObject turretWoker;
+        [SerializeField] private GameObject turretBuyArea;
+        [SerializeField] private TurretData data;
+        [SerializeField] private TMP_Text text;
 
+        private bool _turretWorkerIsExist;
         private int _payedAmouth;
 
-        private void Awake()
+        private void Start()
         {
             Init();
         }
@@ -29,7 +28,11 @@ namespace Assets.Scripts.Controllers.Turret
             if (SaveAndLoadManager.CheackFileExist(gameObject.name))
             {
                 data = (TurretData)SaveAndLoadManager.Load<TurretData>(gameObject.name + ScoreSignals.Instance.onGetLevel().ToString());
-                _payedAmouth = data.TurretAreaPayedAmouth;
+                _turretWorkerIsExist = data.TurretWorkerPayedAmouth >= data.TurretWorkerPrice;
+                _payedAmouth = data.TurretWorkerPayedAmouth;
+
+                text.text = (data.TurretWorkerPrice - _payedAmouth).ToString();
+                BuyNewWorker();
                 return;
             }
             else
@@ -41,61 +44,38 @@ namespace Assets.Scripts.Controllers.Turret
 
         private void Save()
         {
-            data.TurretAreaPayedAmouth = _payedAmouth;
+            data.TurretWorkerPayedAmouth = _payedAmouth;
             SaveAndLoadManager.Save(data, gameObject.name + ScoreSignals.Instance.onGetLevel().ToString());
+            text.text = (data.TurretWorkerPrice - _payedAmouth).ToString();
         }
 
-        private void CheackTurretAreaIsAcrtive()
+        private void BuyNewWorker()
         {
-            if (data.IsActive == false)
+            if (_payedAmouth >= data.TurretWorkerPrice)
             {
-                turretPrefab.SetActive(false);
-                turretBuyArea.SetActive(true);
-                text.text = (data.TurretAreaPrice - data.TurretAreaPayedAmouth).ToString();
-            }
-            else if (data.IsActive == true)
-            {
-                turretPrefab.SetActive(true);
-                turretBuyArea.SetActive(false);
-            }
-        }
-
-        private void BuyTurretArea(int payment)
-        {
-            if (payment >= data.TurretAreaPrice)
-            {
-                turretBuyArea.SetActive(false);
-                turretPrefab.SetActive(true);
-                data.IsActive = true;
+                turretWoker.SetActive(true);
+                data.TurretHasSolder = true;
+                _turretWorkerIsExist = true;
                 Save();
+                turretBuyArea.SetActive(false);
             }
         }
 
-        private void OnApplicationQuit()
-        {
-            Save();
-        }
+        public bool CheackTurretWorkerExist() => _turretWorkerIsExist;
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (data.IsActive && !data.TurretHasSolder && other.CompareTag("player"))
-            {
-                //move player to turret
-            }
-        }
         private void OnTriggerStay(Collider other)
         {
-            if (other.CompareTag("Player") && !data.IsActive && ScoreSignals.Instance.onGetMoney() > 0)
+            if (other.CompareTag("Player") && ScoreSignals.Instance.onGetMoney() > 0)
             {
                 _payedAmouth++;
-                Debug.Log(_payedAmouth);
-                text.text = (data.TurretAreaPrice - _payedAmouth).ToString();
-                BuyTurretArea(_payedAmouth);
+                text.text = (data.TurretWorkerPrice - _payedAmouth).ToString();
+                BuyNewWorker();
             }
         }
+
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("player") && !data.IsActive)
+            if (other.CompareTag("Player"))
             {
                 Save();
             }
@@ -104,7 +84,6 @@ namespace Assets.Scripts.Controllers.Turret
         private void Init()
         {
             Load();
-            CheackTurretAreaIsAcrtive();
         }
     }
 }

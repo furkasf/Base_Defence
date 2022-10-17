@@ -6,12 +6,8 @@ namespace Data.ValueObject
     [Serializable]
     public class TurretData
     {
-        public bool IsActive;
         public bool TurretHasSolder;
-        public int TurretCapacity;
-        public int TurretDamage;
-        public int TurretAreaPayedAmouth;
-        public int TurretAreaPrice = 100;
-        
+        public int TurretWorkerPayedAmouth;
+        public int TurretWorkerPrice = 100;
     }
 }

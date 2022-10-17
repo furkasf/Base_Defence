@@ -11,6 +11,7 @@ namespace Enums
         Money,//d
         Diamond,//d
         Boss,//d
+        Enemy,
         Ammo,//d
         Bullet,//d
         TurretWorker,

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Data.ValueObject.LevelData.BaseData
 {
+    [Serializable]
     public class MoneyWorkerData
     {
         public int MoneyWorkerCost = 150;

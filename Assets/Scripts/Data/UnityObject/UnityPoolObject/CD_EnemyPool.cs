@@ -11,7 +11,7 @@ namespace Data.UnityObject
 
         CD_EnemyPool()
         {
-            Key = Type == null ? EnemyType.Red.ToString(): Type.ToString();
+            Key = PoolAbleType.Enemy.ToString();
             InitialSize = 30;
             IsExtensible = false;
         }

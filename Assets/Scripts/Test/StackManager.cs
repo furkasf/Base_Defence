@@ -76,6 +76,10 @@ namespace Assets.Scripts.Test
                 _stackOffsetY--;
                 _transform.gameObject.SetActive(false);//test purpose
             }
+            _stackOffsetZ = 0;
+            _stackOffsetY = 0;
+
+
         }
 
         

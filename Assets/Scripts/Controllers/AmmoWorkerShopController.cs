@@ -2,6 +2,8 @@
 using Data.ValueObject;
 using Interfaces;
 using Managers;
+using Enums;
+using Signals;
 using TMPro;
 using UnityEngine;
 
@@ -9,12 +11,17 @@ namespace Assets.Scripts.Controllers
 {
     public class AmmoWorkerShopController : MonoBehaviour, ISaveAble
     {
-        [SerializeField] private GameObject workerBuyArea;
+        [SerializeField] private Transform ammoWorkerSpawnArea;
         [SerializeField] private AmmoWorkerData data;
         [SerializeField] private TMP_Text text;
 
         private int _totalCreatedWorkerCount = 0;//by default
         private int _payedAmouth;
+
+        private void Start()
+        {
+            Init();
+        }
 
         public void Load()
         {
@@ -23,6 +30,7 @@ namespace Assets.Scripts.Controllers
                 data = (AmmoWorkerData)SaveAndLoadManager.Load<AmmoWorkerData>(gameObject.name + ScoreSignals.Instance.onGetLevel().ToString());
                 _totalCreatedWorkerCount = data.TotalExistMoneyWorker;
                 _payedAmouth = data.AmmoWorkerpayedAmount;
+                GetSavedWorker();
                 text.text = (data.AmmoWorkerCost - _payedAmouth).ToString();
                 return;
             }
@@ -47,16 +55,20 @@ namespace Assets.Scripts.Controllers
             {
                 _totalCreatedWorkerCount++;
                 _payedAmouth = 0;
-                //get worker from pool
+                GameObject worker = PoolSignals.onGetObjectFormPool(PoolAbleType.AmmoWorker.ToString());
+                worker.transform.SetParent(ammoWorkerSpawnArea);
+                worker.transform.position = ammoWorkerSpawnArea.position;
                 Save();
             }
         }
 
-        private void ReplaceExistedWorker()
+        private void GetSavedWorker()
         {
-            if (_totalCreatedWorkerCount > 0)
+            for(int i =0; i < _totalCreatedWorkerCount; i++)
             {
-                //spawn workers from pool
+                GameObject worker = PoolSignals.onGetObjectFormPool(PoolAbleType.AmmoWorker.ToString());
+                worker.transform.SetParent(ammoWorkerSpawnArea);
+                worker.transform.position = ammoWorkerSpawnArea.position;
             }
         }
 
@@ -81,7 +93,6 @@ namespace Assets.Scripts.Controllers
         private void Init()
         {
             Load();
-            ReplaceExistedWorker();
         }
     }
 }

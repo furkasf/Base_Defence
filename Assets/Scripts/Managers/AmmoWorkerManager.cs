@@ -2,7 +2,7 @@
 using Assets.Scripts.Extentions;
 using Assets.Scripts.Signals;
 using Assets.Scripts.Test;
-using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,9 +11,11 @@ namespace Assets.Scripts.Managers
     public class AmmoWorkerManager : MonoBehaviour
     {
         public Transform StackHolder;
+        public bool AmmoIsTaken;
 
-        private Transform _ammoStackShop;
-        private TurretAmmoController _tarretPool;
+        [ShowInInspector] private Transform _ammoStackShop;
+        [ShowInInspector] private TurretAmmoController _tarretPool;
+
         private StackManager _girdStack;
         private NavMeshAgent _agent;
 
@@ -21,14 +23,13 @@ namespace Assets.Scripts.Managers
         {
             _agent = GetComponent<NavMeshAgent>();
             _girdStack = new StackManager(StackHolder.transform);
-            Debug.Log(_agent);
         }
 
-        private IEnumerator Start()
+        private void Start()
         {
             _ammoStackShop = TurretSignals.Instance.onGetAmmoStackPosition();
-            _tarretPool = TurretSignals.Instance.onGetTurretAmmoStack();
-            yield return null;
+            Debug.Log(_ammoStackShop.name);
+            _tarretPool = TurretSignals.Instance.OnGetLowestNumberAmmoTurret();
         }
 
         #region Actions
@@ -38,6 +39,7 @@ namespace Assets.Scripts.Managers
             if (!_agent.hasPath)
             {
                 _agent.SetDestination(_ammoStackShop.position);
+                Debug.Log("Destination name: " + _ammoStackShop.name);
             }
         }
 

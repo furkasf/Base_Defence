@@ -1676,8 +1676,8 @@ MonoBehaviour:
   _isMiningDoneCall: 0
   _isDeliverGemToStackCall: 0
   _isMinerReachtoMineCall: 0
-  MinePossition: {fileID: 0}
-  MineDeliveryTarget: {fileID: 0}
+  _minerTarget: {fileID: 0}
+  _mineDeliveryTarget: {fileID: 0}
 --- !u!195 &2109795618
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1686,7 +1686,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5932298755541259424}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: 287145453
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8

@@ -12,6 +12,7 @@ namespace Assets.Scripts.AI.AmmoWorkerAI
         {
             var manager = stateMachine.GetComponent<AmmoWorkerManager>();
             manager.GetAmmoFromAmmoShop();
+
         }
     }
 }

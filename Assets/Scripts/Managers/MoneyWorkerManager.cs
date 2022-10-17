@@ -9,6 +9,8 @@ namespace Assets.Scripts.Managers
 {
     public class MoneyWorkerManager : MonoBehaviour
     {
+        public Transform _moneyPosition;
+
         [SerializeField] private Transform baseLocation;
         [SerializeField] private Transform outsideLocation;
         [SerializeField] private Transform _stackHolder;
@@ -16,9 +18,7 @@ namespace Assets.Scripts.Managers
 
         //that long list of data can be converted scriptable object
         private bool _moneyIsTaken;
-
         private bool _ThereIsNoMoreMoney;
-        public Transform _moneyPosition;
         private NavMeshAgent _agent;
         private SphereCollider _sphereCollider;
         private StackManager _stack;

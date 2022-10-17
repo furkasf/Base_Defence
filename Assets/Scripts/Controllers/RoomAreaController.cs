@@ -2,6 +2,7 @@
 using Data.ValueObject;
 using Interfaces;
 using Managers;
+using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -11,14 +12,19 @@ namespace Controllers
     public class RoomAreaController : MonoBehaviour , ISaveAble
     {
         [SerializeField] private RoomData data;
-        [SerializeField] private GameObject roomLock;
         [SerializeField] private GameObject room;
         [SerializeField] private GameObject roomUnlockArea;
         [SerializeField] private TMP_Text text;
 
+        private Renderer _renderer;
         private int _payedAmouth;
 
         private void Awake()
+        {
+            _renderer = GetComponent<Renderer>();
+        }
+
+        private void Start()
         {
             Init();
         }
@@ -49,14 +55,12 @@ namespace Controllers
             if(data.RoomPayedAmouth >= data.RoomCost)
             {
                 room.SetActive(true);
-                roomLock.SetActive(false);
                 roomUnlockArea.SetActive(false);
                 return;
             }
             else
             {
                 room.SetActive(false);
-                roomLock.SetActive(true);
                 roomUnlockArea.SetActive(true);
                 text.text = (data.RoomCost - data.RoomPayedAmouth).ToString();
             }
@@ -67,7 +71,6 @@ namespace Controllers
             if(_payedAmouth >= data.RoomCost)
             {
                 room.SetActive(true);
-                roomLock.SetActive(false);
                 roomUnlockArea.SetActive(false);
                 Save();
                 return;
@@ -80,6 +83,7 @@ namespace Controllers
             {
                 _payedAmouth++;
                 text.text = (data.RoomCost - _payedAmouth).ToString();
+                RadianFillAnimation();
                 BuyRoom();
             }
         }
@@ -88,10 +92,21 @@ namespace Controllers
         {
             if(other.CompareTag("Player"))
             {
+                ResetRadianFill(); ;
                 Save();
             }
         }
 
+        private void RadianFillAnimation()
+        {
+            float filletAmount = 360 - (data.RoomPayedAmouth * 360 / data.RoomCost);
+            _renderer.material.DOFloat(filletAmount, "_Arc2", 0.05f);
+        }
+
+        private void ResetRadianFill()
+        {
+            _renderer.material.SetFloat("_Arc2", 360);
+        }
         private void Init()
         {
             Load();

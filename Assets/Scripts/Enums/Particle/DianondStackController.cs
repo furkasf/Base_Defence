@@ -29,8 +29,8 @@ namespace Controllers
 
         public void RemoveAllDiamondFromGrid()
         {
-            int limit = _gems.Count;
-            for (int i = 0; i < limit; i++)
+            int total = _gems.Count;
+            for (int i = 0; i < total; i++)
             {
                 var obj = _gems[0];
 
@@ -44,6 +44,7 @@ namespace Controllers
                 _gems.Remove(obj);
                 _gems.TrimExcess();
             }
+            grid.ReleaseAllObjectsOnGrid();
         }
 
         private void OnTriggerEnter(Collider other)

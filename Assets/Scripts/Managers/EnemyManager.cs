@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Controllers.Enemy;
+using Assets.Scripts.Signals;
 using Controllers;
 using Extentions;
 using Signals;
@@ -13,7 +14,7 @@ namespace Assets.Scripts.Managers
         public Transform target;
 
         public bool IsPlayerAttackable;
-        public int Heath = 100;
+        public int Heath = 10;
 
         [SerializeField] private EnemyPhysicController physicController;
         [SerializeField] private EnemyMeshController meshController;
@@ -25,16 +26,22 @@ namespace Assets.Scripts.Managers
         {
             _animator = GetComponent<Animator>();
             _agent = GetComponent<NavMeshAgent>();
+            _agent.enabled = false;
+        }
+
+        private void Start()
+        {
+            GetReferences();
+            _agent.enabled = true;
+            Debug.Log("enemy manager");
         }
 
         public void GetDamage()
         {
             Heath -= 5;
-            if(Heath <= 0)
+            if (Heath <= 0)
             {
-                //call reset funtion
-                //PutToPool()
-                gameObject.SetActive(false);
+                PutToPool();
             }
         }
 
@@ -83,7 +90,7 @@ namespace Assets.Scripts.Managers
 
         #region Conditions
 
-        public bool CheackDistanceWithPlayer() => Vector3.Distance(PlayerPossition.position, transform.position) <= 10;
+        public bool CheackDistanceWithPlayer() => Vector3.Distance(PlayerPossition.position, transform.position) <= 5;
 
         public bool CheakTargerAttackAbel() => Vector3.Distance(PlayerPossition.position, transform.position) <= .5f;
 
@@ -100,12 +107,22 @@ namespace Assets.Scripts.Managers
 
         #endregion Conditions
 
+        private void GetReferences()
+        {
+            if (PlayerPossition == null)
+            {
+                PlayerPossition = GameObject.FindGameObjectWithTag("Player").transform;
+            }
+            target = BaseSignals.Instance.OnGetRandomPoint();
+        }
+
         #region Reset Object
 
         //settins for put back to pool
         private void PutToPool()
         {
             _agent.isStopped = false;
+            Heath = 10;
             meshController.OpenSaturation();
             PoolSignals.onPutObjectBackToPool(gameObject, "Enemy");
         }

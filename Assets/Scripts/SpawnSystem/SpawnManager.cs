@@ -1,9 +1,5 @@
-﻿using Signals;
-using Enums;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Assets.Scripts.SpawnSystem
 {
@@ -15,7 +11,7 @@ namespace Assets.Scripts.SpawnSystem
 
         public void ActivateSpawners()
         {
-            foreach(AbstractSpawner spawner in abstractSpawners)
+            foreach (AbstractSpawner spawner in abstractSpawners)
             {
                 StartCoroutine(spawner.Spawn());
             }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CD_EnemyPool
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5718994066168035408, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
-  Key: Red
+  Key: Enemy
   InitialSize: 30
   IsExtensible: 0
   Type: 0

@@ -7,7 +7,7 @@ namespace Assets.Scripts.Signals
 {
     public class TurretSignals : MonoSingleton<TurretSignals>
     {
-        public Func<TurretAmmoController> onGetTurretAmmoStack;
         public Func<Transform> onGetAmmoStackPosition;
+        public Func<TurretAmmoController> OnGetLowestNumberAmmoTurret;
     }
 }
