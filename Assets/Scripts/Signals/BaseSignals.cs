@@ -9,5 +9,8 @@ namespace Signals
     public class BaseSignals : MonoSingleton<BaseSignals>
     {
         public Func<Transform> OnGetRandomPoint;
+        public Func<Transform> onGetBaseWayPoint;
+        public Func<Transform> onGetOutSideWayPoint;
+
     }
 }

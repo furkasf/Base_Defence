@@ -62,22 +62,22 @@ namespace Assets.Scripts.Test
 
         public void RemoveAllStack()
         {
-            foreach(var stack in _stack)
-            {
-                if (_stack.Count == 0) return;
-                Transform _transform = _stack.Pop();
-                if (_stackOffsetY == 0)
-                {
-                    _stackOffsetY = StackCap - 1;
-                    _stackOffsetZ--;
-                    _transform.gameObject.SetActive(false);//test purpose
-                    return;
-                }
-                _stackOffsetY--;
-                _transform.gameObject.SetActive(false);//test purpose
-            }
-            _stackOffsetZ = 0;
-            _stackOffsetY = 0;
+            //foreach(var stack in _stack)
+            //{
+            //    if (_stack.Count == 0) return;
+            //    Transform _transform = _stack.Pop();
+            //    if (_stackOffsetY == 0)
+            //    {
+            //        _stackOffsetY = StackCap - 1;
+            //        _stackOffsetZ--;
+            //        _transform.gameObject.SetActive(false);//test purpose
+            //        return;
+            //    }
+            //    _stackOffsetY--;
+            //    _transform.gameObject.SetActive(false);//test purpose
+            //}
+            //_stackOffsetZ = 0;
+            //_stackOffsetY = 0;
 
 
         }

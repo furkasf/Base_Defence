@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Controllers.MoneyWorker;
 using Assets.Scripts.Extentions;
 using Assets.Scripts.Test;
+using Signals;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
@@ -28,6 +29,12 @@ namespace Assets.Scripts.Managers
             _agent = GetComponent<NavMeshAgent>();
             _sphereCollider = GetComponent<SphereCollider>();
             _stack = new StackManager(_stackHolder);
+        }
+
+        public void Start()
+        {
+            baseLocation = BaseSignals.Instance.onGetBaseWayPoint();
+            outsideLocation = BaseSignals.Instance.onGetOutSideWayPoint();
         }
 
         #region Actions

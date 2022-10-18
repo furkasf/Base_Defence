@@ -1,7 +1,5 @@
 ﻿using Assets.Scripts.Signals;
-using Data.ValueObject;
 using Signals;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,8 +8,10 @@ namespace Assets.Scripts.Managers
 {
     public class BaseManager : MonoBehaviour
     {
-        [SerializeField] TMP_Text text;
-        [SerializeField] List<Transform> targets = new List<Transform>();
+        [SerializeField] private TMP_Text text;
+        [SerializeField] private List<Transform> targets = new List<Transform>();
+        [SerializeField] private Transform baseWayPoint;
+        [SerializeField] private Transform outsideBasePoint;
 
         private void Start()
         {
@@ -20,6 +20,7 @@ namespace Assets.Scripts.Managers
         }
 
         #region subscription
+
         private void OnEnable()
         {
             SubscribeEvents();
@@ -27,21 +28,27 @@ namespace Assets.Scripts.Managers
 
         private void SubscribeEvents()
         {
-           BaseSignals.Instance.OnGetRandomPoint += OnGetRandomPoint;
+            BaseSignals.Instance.OnGetRandomPoint += OnGetRandomPoint;
+            BaseSignals.Instance.onGetBaseWayPoint += OnGetBaseWayPoint;
+            BaseSignals.Instance.onGetOutSideWayPoint += OnGetOutSideWayPoint;
         }
 
         private void UnsubscribeEvents()
         {
             BaseSignals.Instance.OnGetRandomPoint -= OnGetRandomPoint;
+            BaseSignals.Instance.onGetBaseWayPoint += OnGetBaseWayPoint;
+            BaseSignals.Instance.onGetOutSideWayPoint += OnGetOutSideWayPoint;
         }
 
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
-        #endregion
 
+        #endregion subscription
 
         private Transform OnGetRandomPoint() => targets[Random.Range(0, targets.Count)];
+        private Transform OnGetBaseWayPoint() => baseWayPoint;
+        private Transform OnGetOutSideWayPoint() => outsideBasePoint;
     }
 }
