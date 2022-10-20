@@ -1,7 +1,5 @@
 ﻿using Signals;
-using States;
 using Cinemachine;
-using StateMachines;
 using UnityEngine;
 
 
@@ -20,7 +18,6 @@ namespace Managers
 
         #region Private
 
-        private StateMachine2 _stateMachine;
         private Transform _player;
         private Animator _stateDrivenCameraAnimator;
         private CinemachineStateDrivenCamera _stateDrivenCamera;

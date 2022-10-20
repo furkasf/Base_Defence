@@ -1,3 +1,4 @@
+using Assets.Scripts.Signals;
 using Data.UnityObject;
 using Data.ValueObject;
 using Keys;
@@ -81,6 +82,7 @@ namespace Managers
 
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Mouse is Down");
                 _isTouching = true;
                 InputSignals.Instance.onInputTaken?.Invoke();
                 if (!isFirstTimeTouchTaken)
@@ -88,12 +90,15 @@ namespace Managers
                     isFirstTimeTouchTaken = true;
                     InputSignals.Instance.onFirstTimeTouchTaken?.Invoke();
                 }
+                //add hostage signals
+                HostageSignals.Instance.onLerpStack();
             }
 
             if (Input.GetMouseButton(0))
             {
                 if (_isTouching)
                 {
+                    Debug.Log("Mouse is youching");
                     InputSignals.Instance.onInputDragged?.Invoke(new InputParams()
                     {
                         movementVector = new Vector3(floatingJoystick.Horizontal, 0, floatingJoystick.Vertical)

@@ -24,6 +24,7 @@ TagManager:
   - GemSpot
   - Gate
   - TurretAmmoHolder
+  - Hostage
   layers:
   - Default
   - TransparentFX
