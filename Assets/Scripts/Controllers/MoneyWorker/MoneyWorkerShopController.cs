@@ -35,7 +35,6 @@ namespace Assets.Scripts.Controllers.MoneyWorker
             }
             else
             {
-                Debug.Log("not save file founded");
                 data = new MoneyWorkerData();
             }
         }

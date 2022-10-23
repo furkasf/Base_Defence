@@ -37,7 +37,6 @@ namespace Assets.Scripts.Controllers.Turret
             }
             else
             {
-                Debug.Log("not save file founded");
                 data = new TurretData();
             }
         }

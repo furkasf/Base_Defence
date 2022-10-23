@@ -16,7 +16,6 @@ namespace Assets.Scripts.Managers
         private void Start()
         {
             text.text = "Base " + ScoreSignals.Instance.onGetLevel().ToString();
-            Debug.Log("base manager");
         }
 
         #region subscription

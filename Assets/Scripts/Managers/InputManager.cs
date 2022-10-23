@@ -82,7 +82,6 @@ namespace Managers
 
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Mouse is Down");
                 _isTouching = true;
                 InputSignals.Instance.onInputTaken?.Invoke();
                 if (!isFirstTimeTouchTaken)
@@ -98,7 +97,6 @@ namespace Managers
             {
                 if (_isTouching)
                 {
-                    Debug.Log("Mouse is youching");
                     InputSignals.Instance.onInputDragged?.Invoke(new InputParams()
                     {
                         movementVector = new Vector3(floatingJoystick.Horizontal, 0, floatingJoystick.Vertical)

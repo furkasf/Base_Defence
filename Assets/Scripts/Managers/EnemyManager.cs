@@ -2,6 +2,7 @@
 using Assets.Scripts.Signals;
 using Controllers;
 using Extentions;
+using FSM;
 using Signals;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,6 +17,7 @@ namespace Assets.Scripts.Managers
         public bool IsPlayerAttackable;
         public int Heath = 10;
 
+        [SerializeField] private BaseStateMachine stateMachine;
         [SerializeField] private EnemyPhysicController physicController;
         [SerializeField] private EnemyMeshController meshController;
 
@@ -33,7 +35,6 @@ namespace Assets.Scripts.Managers
         {
             GetReferences();
             _agent.enabled = true;
-            Debug.Log("enemy manager");
         }
 
         public void GetDamage()
@@ -96,15 +97,8 @@ namespace Assets.Scripts.Managers
 
         public bool CheackEnemyReachTheTarget() => Vector3.Distance(target.position, transform.position) <= 1.5f;
 
-        public bool IsDead()
-        {
-            if (_animator.AnimatorIsPlaying("Death"))
-            {
-                return false;
-            }
-            return true;
-        }
-
+        public bool IsDead() => Heath <= 0;
+       
         #endregion Conditions
 
         private void GetReferences()

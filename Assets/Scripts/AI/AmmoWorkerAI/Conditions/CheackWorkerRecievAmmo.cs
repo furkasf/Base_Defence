@@ -13,7 +13,6 @@ namespace Assets.Scripts.AI.AmmoWorkerAI.Conditions
            if(manager.CheackAmmoIsTaken() && manager.AmmoIsTaken)
             {
                 manager.RemoveAllAmmoFromStack();
-                Debug.Log("CheackWorkerRecievAmmo");
                 manager.AmmoIsTaken = false;
                 return true;
             }

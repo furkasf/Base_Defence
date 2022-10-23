@@ -15,6 +15,7 @@ namespace Enums
         Ammo,//d
         Bullet,//d
         TurretWorker,
+        GunBullet,
         MoneyWorker,//d
         MinerWorker,//d
         AmmoWorker,//d

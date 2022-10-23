@@ -1,32 +1,27 @@
-﻿using Keys;
-using Signals;
+﻿using Assets.Scripts.Controllers.Player;
+using Assets.Scripts.Enums;
 using Controllers;
+using Keys;
+using Signals;
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace Assets.Scripts.Managers
 {
     public class PlayerManager : MonoBehaviour
     {
-        #region Self Variables
+        public PlayerState State;
 
-        #region Seriliazed Field
+        [SerializeField] GameObject pistol;
         [SerializeField] private Rigidbody rigidBody;
         [SerializeField] private PlayerMovementController movementController;
-
-        #endregion Seriliazed Field
-
-        #region Private
+        [SerializeField] private PlayerAnimatorController animationController;
 
         private PlayerData _playerData;
         private bool _isPlayerMoving;
 
-        #endregion Private
-
-        #endregion Self Variables
-
         private void Awake()
         {
+            State = PlayerState.Inside;
             _playerData = GetPlayerData();
             SetPlayerDataToControllers();
         }
@@ -48,8 +43,6 @@ namespace Assets.Scripts.Managers
             InputSignals.Instance.onInputTaken += OnPointerDown;
             InputSignals.Instance.onInputReleased += OnInputReleased;
             InputSignals.Instance.onInputDragged += OnInputDragged;
-
-         
         }
 
         private void UnsubscribeEvents()
@@ -60,8 +53,6 @@ namespace Assets.Scripts.Managers
             InputSignals.Instance.onInputTaken -= OnPointerDown;
             InputSignals.Instance.onInputReleased -= OnInputReleased;
             InputSignals.Instance.onInputDragged -= OnInputDragged;
-
-         
         }
 
         private void OnDisable()
@@ -86,16 +77,22 @@ namespace Assets.Scripts.Managers
         private void OnPointerDown()
         {
             ActivateMovement();
+            animationController.PlayRunAnimation();
             _isPlayerMoving = true;
-            //animation controller set run animation
         }
 
         private void OnInputReleased()
         {
             DeactivateMovement();
+            animationController.PlayIdleAnimation();
             _isPlayerMoving = false;
-            //animation controller set idle animation
         }
+
+        public void ActivatePistol(bool activate) => pistol.SetActive(activate);
+
+        public void EnableAimLayer() => animationController.EnableAimLayer();
+
+        public void DisableAimLayer() => animationController.DisableAimLayer();
 
         private void OnInputDragged(InputParams inputParams) => movementController.UpdateInputValue(inputParams);
 

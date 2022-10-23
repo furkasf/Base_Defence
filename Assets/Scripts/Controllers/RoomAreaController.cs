@@ -39,7 +39,6 @@ namespace Controllers
             }
             else
             {
-                Debug.Log("not save file founded");
                 data = new RoomData();
             }
         }

@@ -36,7 +36,6 @@ namespace Assets.Scripts.Controllers
             }
             else
             {
-                Debug.Log("not save file founded");
                 data = new AmmoWorkerData();
             }
         }

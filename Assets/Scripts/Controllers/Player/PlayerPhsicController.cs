@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Signals;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,22 @@ namespace Assets.Scripts.Controllers.Player
             if(other.CompareTag("Hostage"))
             {
                 HostageSignals.Instance.onAddStack(other.transform);
-                Debug.Log("hostageIncluded to list");
             }
             if (other.CompareTag("MineArea"))
             {
                 HostageSignals.Instance.onClearStack();
+            }
+            if(other.CompareTag("GateInside"))
+            {
+                manager.State = PlayerState.Inside;
+                manager.DisableAimLayer();
+                manager.ActivatePistol(false);
+            }
+            if (other.CompareTag("GateOutside"))
+            {
+                manager.State = PlayerState.Outside;
+                manager.EnableAimLayer();
+                manager.ActivatePistol(true);
             }
         }
     }

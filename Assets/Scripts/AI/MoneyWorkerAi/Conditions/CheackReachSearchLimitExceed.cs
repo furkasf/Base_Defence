@@ -17,7 +17,6 @@ namespace Assets.Scripts.AI.MoneyWorkerAi.Conditions
             _time += Time.smoothDeltaTime;
             if (!manager.CheackMoneyIsTaken())
             {
-                Debug.Log(_time);
                 if(_time > 1.6f)
                 {
                     _time = 0;

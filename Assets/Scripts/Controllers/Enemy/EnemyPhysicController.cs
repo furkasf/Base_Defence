@@ -1,4 +1,6 @@
 using Assets.Scripts.Managers;
+using Enums;
+using Signals;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +15,15 @@ namespace Controllers
         {
             if(other.CompareTag("Bullet"))
             {
-               //put bullet to pool
-               other.gameObject.SetActive(false);
-                //call damage funtion from manager
+                Debug.Log("collidet work");
+                PoolSignals.onPutObjectBackToPool(other.gameObject, PoolAbleType.Bullet.ToString());
                 manager.GetDamage();
             }
            
+            if(!manager.IsDead())
+            {
+                Debug.Log("is deaad");
+            }
         }
         
     }

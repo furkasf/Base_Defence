@@ -18,7 +18,6 @@ namespace FSM
 
         private void Update()
         {
-            Debug.Log(CurrentState);
             CurrentState.Execute(this);
         }
 

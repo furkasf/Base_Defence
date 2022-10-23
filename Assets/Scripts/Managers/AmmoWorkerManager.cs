@@ -28,7 +28,6 @@ namespace Assets.Scripts.Managers
         private void Start()
         {
             _ammoStackShop = TurretSignals.Instance.onGetAmmoStackPosition();
-            Debug.Log(_ammoStackShop.name);
             _tarretPool = TurretSignals.Instance.OnGetLowestNumberAmmoTurret();
         }
 
@@ -39,7 +38,6 @@ namespace Assets.Scripts.Managers
             if (!_agent.hasPath)
             {
                 _agent.SetDestination(_ammoStackShop.position);
-                Debug.Log("Destination name: " + _ammoStackShop.name);
             }
         }
 
