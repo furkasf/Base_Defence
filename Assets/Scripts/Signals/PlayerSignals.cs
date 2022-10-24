@@ -1,4 +1,5 @@
-﻿using Extentions;
+﻿using Assets.Scripts.Enums;
+using Extentions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace Signals
         public Action onIsPlayerMoving;
         public Action onGetPlayerTransfrom;
         public Action onGetPlayerSpeed;
+        public Func<PlayerState> onGetPlayerState;
     }
 }

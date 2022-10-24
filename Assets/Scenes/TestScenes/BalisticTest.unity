@@ -135,29 +135,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2131441239}
     - target: {fileID: 2063745304, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
-      propertyPath: stateMachine
-      value: 
-      objectReference: {fileID: 1620523285}
-    - target: {fileID: 2063745304, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
       propertyPath: PlayerPossition
       value: 
       objectReference: {fileID: 278939956}
-    - target: {fileID: 1127352209693933712, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
-      propertyPath: m_Size.x
-      value: 0.91311216
-      objectReference: {fileID: 0}
-    - target: {fileID: 1127352209693933712, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
-      propertyPath: m_Size.z
-      value: 0.46050882
-      objectReference: {fileID: 0}
-    - target: {fileID: 1127352209693933712, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
-      propertyPath: m_Center.x
-      value: -0.26811957
-      objectReference: {fileID: 0}
-    - target: {fileID: 1127352209693933712, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
-      propertyPath: m_Center.z
-      value: -0.30827022
-      objectReference: {fileID: 0}
     - target: {fileID: 5718994066168035408, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
       propertyPath: m_Name
       value: StandartEnemy
@@ -206,12 +186,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9204840710696743886, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9204840710696743886, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
 --- !u!1001 &161587776
 PrefabInstance:
@@ -902,17 +877,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7353791090526324195, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
   m_PrefabInstance: {fileID: 14840181}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1620523285 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8721550273859539308, guid: 53f5735755fb96e4aaed2b14f5918fac, type: 3}
-  m_PrefabInstance: {fileID: 14840181}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9d49cb7bd3d3274088a8693d5870722, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2068075609
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +890,7 @@ GameObject:
   - component: {fileID: 2068075612}
   - component: {fileID: 2068075611}
   - component: {fileID: 2068075610}
+  - component: {fileID: 2068075615}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -1019,14 +984,30 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068075609}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.63, z: 0}
+  m_LocalRotation: {x: 0.024706928, y: -0, z: -0, w: 0.99969476}
+  m_LocalPosition: {x: 0, y: 1.37, z: 0.0005735457}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1269948920}
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.831, y: 0, z: 0}
+--- !u!54 &2068075615
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068075609}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 16
+  m_CollisionDetection: 0
 --- !u!1 &2131441238
 GameObject:
   m_ObjectHideFlags: 0

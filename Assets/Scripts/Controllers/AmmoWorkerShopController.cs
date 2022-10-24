@@ -37,6 +37,7 @@ namespace Assets.Scripts.Controllers
             else
             {
                 data = new AmmoWorkerData();
+                text.text = (data.AmmoWorkerCost - _payedAmouth).ToString();
             }
         }
 

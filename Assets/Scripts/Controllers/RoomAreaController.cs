@@ -35,11 +35,13 @@ namespace Controllers
             {
                 data = (RoomData)SaveAndLoadManager.Load<RoomData>(gameObject.name + ScoreSignals.Instance.onGetLevel().ToString());
                 _payedAmouth = data.RoomPayedAmouth;
+                text.text = (data.RoomCost - data.RoomPayedAmouth).ToString();
                 return;
             }
             else
             {
                 data = new RoomData();
+                text.text = (data.RoomCost - data.RoomPayedAmouth).ToString();
             }
         }
 

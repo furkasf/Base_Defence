@@ -1721,7 +1721,6 @@ GameObject:
   - component: {fileID: 4838025095867162144}
   - component: {fileID: 7964266848949523381}
   - component: {fileID: 5475618036351102973}
-  - component: {fileID: 9204840710696743886}
   - component: {fileID: 2063745304}
   - component: {fileID: 8721550273859539308}
   m_Layer: 7
@@ -1761,7 +1760,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 1f3e4a20ea96d634a9578d0d2bb7ac73, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1819,19 +1818,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
---- !u!65 &9204840710696743886
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5718994066168035408}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.086833, y: 1.9754529, z: 1.0987244}
-  m_Center: {x: 0.000104904175, y: 1.039263, z: 0.022583008}
 --- !u!114 &2063745304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1847,7 +1833,8 @@ MonoBehaviour:
   PlayerPossition: {fileID: 0}
   target: {fileID: 0}
   IsPlayerAttackable: 0
-  Heath: 100
+  Heath: 15
+  stateMachine: {fileID: 8721550273859539308}
   physicController: {fileID: 4713175028790422522}
   meshController: {fileID: 3220450598080265767}
 --- !u!114 &8721550273859539308
@@ -1906,8 +1893,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.85890865, y: 1.2500833, z: 0.38359356}
-  m_Center: {x: -0.24101782, y: -0.12504172, z: -0.34672785}
+  m_Size: {x: 0.91311216, y: 1.2500833, z: 0.46050882}
+  m_Center: {x: -0.26811957, y: -0.12504172, z: -0.30827022}
 --- !u!114 &4713175028790422522
 MonoBehaviour:
   m_ObjectHideFlags: 0

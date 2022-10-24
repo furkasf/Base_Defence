@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Test
+namespace Assets.Scripts.Managers
 {
     public class StackManager
     {

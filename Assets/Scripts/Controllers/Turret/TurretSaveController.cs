@@ -32,12 +32,15 @@ namespace Assets.Scripts.Controllers.Turret
                 _payedAmouth = data.TurretWorkerPayedAmouth;
 
                 text.text = (data.TurretWorkerPrice - _payedAmouth).ToString();
+                Debug.Log(text.text);
                 BuyNewWorker();
                 return;
             }
             else
             {
                 data = new TurretData();
+                text.text = (data.TurretWorkerPrice - _payedAmouth).ToString();
+                _payedAmouth = data.TurretWorkerPayedAmouth;
             }
         }
 

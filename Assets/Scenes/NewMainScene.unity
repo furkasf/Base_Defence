@@ -1202,6 +1202,11 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 960515654}
+--- !u!1 &1341548456 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6939822279823683157, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
+  m_PrefabInstance: {fileID: 4934734643356870963}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1531782337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1592,7 +1597,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3e2e2b160d7dec74ead214647abac412, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e728ce72a8e20584ab71f1adff812962, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2465,8 +2470,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1567313726}
     m_Modifications:
+    - target: {fileID: 1662788035, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1662788036, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1662788037, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1540284752551102006, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
       propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4384974806442033427, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5022076301909306350, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
@@ -2516,6 +2537,14 @@ PrefabInstance:
     - target: {fileID: 5022076301909306351, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
       propertyPath: m_Name
       value: Level_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256007448152263661, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
+      propertyPath: room
+      value: 
+      objectReference: {fileID: 1341548456}
+    - target: {fileID: 7774479998353110540, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32dfd9f17ca87344ba751678f3f6d71c, type: 3}

@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Controllers.MoneyWorker;
 using Assets.Scripts.Extentions;
-using Assets.Scripts.Test;
 using Signals;
 using System.Threading.Tasks;
 using UnityEngine;

@@ -9,12 +9,15 @@ namespace Extentions.Grid
         [ShowInInspector] private Vector3 _position;
         [ShowInInspector] private Vector3 _scale;
         [ShowInInspector] private Vector3 _placementPoint;
+
         private GridData _gridData;
+
         [ShowInInspector] private int _maxPlacementInLevel;
         [ShowInInspector] private int _placementCount = 0;
         [ShowInInspector] private float _gridX;
         [ShowInInspector] private float _gridY;
         [ShowInInspector] private float _gridZ;
+
         private void Awake()
         {
             GetData();

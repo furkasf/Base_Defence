@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Controllers.Enemy;
-using Assets.Scripts.Signals;
+﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Controllers.Enemy;
 using Controllers;
-using Extentions;
+using Enums;
 using FSM;
 using Signals;
 using UnityEngine;
@@ -15,7 +15,7 @@ namespace Assets.Scripts.Managers
         public Transform target;
 
         public bool IsPlayerAttackable;
-        public int Heath = 10;
+        public int Heath = 15;
 
         [SerializeField] private BaseStateMachine stateMachine;
         [SerializeField] private EnemyPhysicController physicController;
@@ -37,12 +37,17 @@ namespace Assets.Scripts.Managers
             _agent.enabled = true;
         }
 
+        private void OnEnable()
+        {
+            ShootController.AddEnemyToList(transform);
+        }
+
         public void GetDamage()
         {
             Heath -= 5;
             if (Heath <= 0)
             {
-                PutToPool();
+                Dead();
             }
         }
 
@@ -81,6 +86,8 @@ namespace Assets.Scripts.Managers
         {
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
             {
+                DropMoney();
+                stateMachine.enabled = false;
                 _agent.isStopped = true;
                 _animator.SetTrigger("Death");
                 meshController.CloseSaturation();
@@ -98,7 +105,7 @@ namespace Assets.Scripts.Managers
         public bool CheackEnemyReachTheTarget() => Vector3.Distance(target.position, transform.position) <= 1.5f;
 
         public bool IsDead() => Heath <= 0;
-       
+
         #endregion Conditions
 
         private void GetReferences()
@@ -110,13 +117,23 @@ namespace Assets.Scripts.Managers
             target = BaseSignals.Instance.OnGetRandomPoint();
         }
 
+        private void DropMoney()
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                GameObject money = PoolSignals.onGetObjectFormPool(PoolAbleType.Money.ToString());
+                money.transform.position = transform.position ;
+            }
+        }
+
         #region Reset Object
 
         //settins for put back to pool
-        private void PutToPool()
+        public void PutToPool()
         {
-            _agent.isStopped = false;
-            Heath = 10;
+            ShootController.RemoveEnemyToList(transform);
+            stateMachine.enabled = true; ;
+            Heath = 15;
             meshController.OpenSaturation();
             PoolSignals.onPutObjectBackToPool(gameObject, "Enemy");
         }

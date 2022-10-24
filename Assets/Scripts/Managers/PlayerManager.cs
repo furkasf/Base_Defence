@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Controllers.Player;
+﻿using Assets.Scripts.Controllers;
+using Assets.Scripts.Controllers.Player;
 using Assets.Scripts.Enums;
 using Controllers;
 using Keys;
@@ -37,6 +38,8 @@ namespace Assets.Scripts.Managers
 
         private void SubscribeEvents()
         {
+            PlayerSignals.Instance.onGetPlayerState += OnGetPlayerState;
+
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
 
@@ -47,6 +50,8 @@ namespace Assets.Scripts.Managers
 
         private void UnsubscribeEvents()
         {
+            PlayerSignals.Instance.onGetPlayerState -= OnGetPlayerState;
+
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
 
@@ -87,6 +92,8 @@ namespace Assets.Scripts.Managers
             animationController.PlayIdleAnimation();
             _isPlayerMoving = false;
         }
+
+        private PlayerState OnGetPlayerState() => State;
 
         public void ActivatePistol(bool activate) => pistol.SetActive(activate);
 

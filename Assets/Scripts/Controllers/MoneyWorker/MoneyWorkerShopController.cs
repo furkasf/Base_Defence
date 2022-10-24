@@ -36,6 +36,7 @@ namespace Assets.Scripts.Controllers.MoneyWorker
             else
             {
                 data = new MoneyWorkerData();
+                text.text = (data.MoneyWorkerCost - _payedAmouth).ToString();
             }
         }
 
