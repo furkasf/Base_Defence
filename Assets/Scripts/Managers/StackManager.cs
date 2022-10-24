@@ -53,7 +53,6 @@ namespace Assets.Scripts.Managers
             {
                 _stackOffsetY = StackCap - 1;
                 _stackOffsetZ--;
-                stack.gameObject.SetActive(false);//test purpose
                 return;
             }
             _stackOffsetY--;

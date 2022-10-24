@@ -18,7 +18,6 @@ namespace Assets.Scripts.SpawnSystem
             while (PoolSignals.onGetPoolCurrentSize(_type.ToString()) > 0)
             {
                 GameObject _gameObject = PoolSignals.onGetObjectFormPool(_type.ToString());
-                //_gameObject.transform.parent = transform;
                 _gameObject.transform.position = transform.position;
                 yield return waitForSeconds;
             }

@@ -299,6 +299,7 @@ MonoBehaviour:
   State: 0
   pistol: {fileID: 609379149926953930}
   rigidBody: {fileID: 802163330877859997}
+  shootController: {fileID: 0}
   movementController: {fileID: 1583983650531378053}
   animationController: {fileID: 6985288019958097763}
 --- !u!114 &582981840850053821
@@ -2773,7 +2774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 609379150872066154, guid: 1cadc6e1b7e505b49b8a3a9580776994, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3727521593591752012, guid: 1cadc6e1b7e505b49b8a3a9580776994, type: 3}
       propertyPath: m_LocalPosition.y

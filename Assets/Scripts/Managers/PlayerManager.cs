@@ -14,6 +14,7 @@ namespace Assets.Scripts.Managers
 
         [SerializeField] GameObject pistol;
         [SerializeField] private Rigidbody rigidBody;
+        [SerializeField] private ShootController shootController;
         [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private PlayerAnimatorController animationController;
 
@@ -39,6 +40,8 @@ namespace Assets.Scripts.Managers
         private void SubscribeEvents()
         {
             PlayerSignals.Instance.onGetPlayerState += OnGetPlayerState;
+            PlayerSignals.Instance.onAddEnemyToList += shootController.OnAddEnemyToList;
+            PlayerSignals.Instance.onRemoveEnemyToList += shootController.OnRemoveEnemyToList;
 
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
@@ -51,6 +54,8 @@ namespace Assets.Scripts.Managers
         private void UnsubscribeEvents()
         {
             PlayerSignals.Instance.onGetPlayerState -= OnGetPlayerState;
+            PlayerSignals.Instance.onAddEnemyToList -= shootController.OnAddEnemyToList;
+            PlayerSignals.Instance.onRemoveEnemyToList -= shootController.OnRemoveEnemyToList;
 
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;

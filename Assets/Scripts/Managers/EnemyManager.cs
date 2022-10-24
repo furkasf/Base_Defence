@@ -39,7 +39,12 @@ namespace Assets.Scripts.Managers
 
         private void OnEnable()
         {
-            ShootController.AddEnemyToList(transform);
+            PlayerSignals.Instance.onAddEnemyToList(transform);
+        }
+
+        private void OnDisable()
+        {
+            PlayerSignals.Instance.onRemoveEnemyToList(transform);
         }
 
         public void GetDamage()
@@ -131,7 +136,7 @@ namespace Assets.Scripts.Managers
         //settins for put back to pool
         public void PutToPool()
         {
-            ShootController.RemoveEnemyToList(transform);
+            PlayerSignals.Instance.onRemoveEnemyToList(transform);
             stateMachine.enabled = true; ;
             Heath = 15;
             meshController.OpenSaturation();

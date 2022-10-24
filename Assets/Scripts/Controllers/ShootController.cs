@@ -11,7 +11,7 @@ namespace Assets.Scripts.Controllers
     {
         public Transform riffle;
 
-        [ShowInInspector] private static List<Transform> enemys;
+        [ShowInInspector] private List<Transform> enemys = new List<Transform>();
 
         [ShowInInspector] private Transform _currentTarget;
         private const float _distance = 15;
@@ -42,12 +42,22 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        public static void AddEnemyToList(Transform enemy) => enemys.Add(enemy);
-
-        public static void RemoveEnemyToList(Transform enemy)
+        public void OnAddEnemyToList(Transform enemy)
         {
-            enemys.Remove(enemy);
-            enemys.TrimExcess();
+            if (!enemys.Contains(enemy))
+            {
+                enemys.Remove(enemy);
+                enemys.TrimExcess();
+            }
+        }
+
+        public void OnRemoveEnemyToList(Transform enemy)
+        {
+            if (enemys.Contains(enemy))
+            {
+                enemys.Remove(enemy);
+                enemys.TrimExcess();
+            }
         }
 
         private void Shoot()

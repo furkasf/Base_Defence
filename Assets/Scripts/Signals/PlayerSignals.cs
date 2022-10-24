@@ -1,10 +1,7 @@
 ﻿using Assets.Scripts.Enums;
 using Extentions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Signals
 {
@@ -14,5 +11,7 @@ namespace Signals
         public Action onGetPlayerTransfrom;
         public Action onGetPlayerSpeed;
         public Func<PlayerState> onGetPlayerState;
+        public Action<Transform> onAddEnemyToList;
+        public Action<Transform> onRemoveEnemyToList;
     }
 }
