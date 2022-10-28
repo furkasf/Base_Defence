@@ -20,13 +20,11 @@ namespace Assets.Scripts.Controllers.Player
         public void PlayRunAnimation()
         {
             _animator.SetTrigger(_run);
-            Debug.Log("run animation called");
         }
 
         public void PlayIdleAnimation()
         {
             _animator.SetTrigger(_idle);
-            Debug.Log("idle animation called");
         }
 
         public void EnableAimLayer() => _animator.SetLayerWeight(1, 1);

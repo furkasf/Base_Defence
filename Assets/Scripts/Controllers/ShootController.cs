@@ -4,6 +4,7 @@ using Signals;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Assets.Scripts.Controllers
 {
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Controllers
         private void FindClosestTarget()
         {
             if (_currentTarget != null) return;
+
             foreach (var enemy in enemys)
             {
                 if (Vector3.Distance(transform.position, enemy.position) <= _distance)
@@ -37,7 +39,6 @@ namespace Assets.Scripts.Controllers
             {
                 Vector3 targetPos = target.transform.position;
                 transform.DOLookAt(new Vector3(targetPos.x, transform.position.y, targetPos.z), 0.4f);
-
                 return;
             }
         }

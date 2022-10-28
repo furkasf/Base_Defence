@@ -16,6 +16,7 @@ namespace Assets.Scripts.Controllers.MoneyWorker
 
         private int _totalCreatedWorkerCount = 0;//by default
         private int _payedAmouth;
+        private float _timer;
 
         private void Start()
         {
@@ -75,9 +76,16 @@ namespace Assets.Scripts.Controllers.MoneyWorker
         {
             if (other.CompareTag("Player") && ScoreSignals.Instance.onGetMoney() > 0)
             {
-                _payedAmouth++;
-                text.text = (data.MoneyWorkerCost - _payedAmouth).ToString();
-                BuyNewWorker();
+                _timer += Time.smoothDeltaTime;
+                if(_timer > 0.01f)
+                {
+                    _payedAmouth++;
+                    text.text = (data.MoneyWorkerCost - _payedAmouth).ToString();
+                    ScoreSignals.Instance.onDecreaseMoney();
+                    BuyNewWorker();
+                    _timer = 0;
+                }
+                
             }
         }
 

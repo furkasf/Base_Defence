@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Signals;
 using System.Collections;
 using UnityEngine;
 
@@ -12,8 +13,8 @@ namespace Assets.Scripts.Controllers.Hostage
         {
             if(other.CompareTag("Player") && !manager.IsInList)
             {
-                Debug.Log("Player in touch");
                 manager.GoesRunAnimation();
+                HostageSignals.Instance.onAddStack(transform);
             }
         }
 

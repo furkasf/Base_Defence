@@ -11,11 +11,12 @@ namespace Assets.Scripts.Controllers.MoneyWorker
         {
             if (other.CompareTag("Money") && !manager.CheackMoneyIsTaken())
             {
-                Debug.Log("money is found");
                 manager.GetExistedMoney(other.transform);
             }
-            if (other.CompareTag("Base"))
+           
+            if(other.CompareTag("Base") && manager.GetRadius() <= 1)
             {
+                Debug.Log("Gate ise collided");
                 manager.RemoveMoneyFromStack();
             }
         }

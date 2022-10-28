@@ -22,7 +22,7 @@ namespace Controllers
            
             if(!manager.IsDead())
             {
-                Debug.Log("is deaad");
+                    
             }
         }
         

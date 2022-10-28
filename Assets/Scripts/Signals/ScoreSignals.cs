@@ -6,9 +6,9 @@ namespace Assets.Scripts.Signals
 {
     public class ScoreSignals : MonoSingleton<ScoreSignals>
     {
-        public Action onIncreaseMoney;
+        public Action<int> onIncreaseMoney;
         public Action onDecreaseMoney;
-        public Action onIncreaseDiamond;
+        public Action<int> onIncreaseDiamond;
         public Action onDecreaseDiamond;
         public Action onIncreaseLevel;
         public Action onSave;

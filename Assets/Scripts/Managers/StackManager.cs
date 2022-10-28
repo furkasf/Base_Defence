@@ -1,87 +1,88 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Signals;
+using DG.Tweening;
+using Enums;
+using Signals;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
+    public enum StackType
+    {
+        Ammo, Money
+    }
+        
+
     public class StackManager
     {
         public Stack<Transform> _stack = new Stack<Transform>();
         public Transform _holder;
-        public const int StackCap = 10;
-        public int _stackOffsetY;
-        public int _stackOffsetZ;
+        public const int StackCap = 5;
+        private readonly StackType type;
+        public float _stackOffsetY = 0.2f;
+        public float _stackOffsetZ = 0;
 
-        public StackManager(Transform holder)
+        public StackManager(Transform holder, StackType type)
         {
             _holder = holder;
+            this.type = type;
         }
 
         private void AddStackToHolder(Transform o)
         {
             o.parent = _holder;
+            _stack.Push(o);
+            o.localPosition = new Vector3(0, _stackOffsetY, _stackOffsetZ);
+            o.localRotation = new Quaternion(0, 0, 0, 0);
         }
 
         public void AddStack(Transform o)
         {
-            AddStackToHolder(o);
-            if (_stackOffsetY < StackCap)
+            Debug.Log("oofset : " + _stackOffsetY);
+            if (_stack.Count % StackCap != 0)
             {
                 o.tag = "Untagged";
-                _stack.Push(o);
-                o.localPosition = new Vector3(0, _stackOffsetY, _stackOffsetZ);
-                _stackOffsetY++;
+                AddStackToHolder(o);
+                _stackOffsetY += o.localScale.y;
                 return;
             }
-            else if (_stackOffsetY >= StackCap)
+            else
             {
                 o.tag = "Untagged";
-                _stack.Push(o);
-                _stackOffsetY = 0;
-                _stackOffsetZ++;
-                o.localPosition = new Vector3(0, _stackOffsetY, _stackOffsetZ);
-                _stackOffsetY++;
+                _stackOffsetY = 0.2f;
+                _stackOffsetZ += o.localScale.z;
+                AddStackToHolder(o);
                 return;
             }
-        }
-
-        public void RemoveStack()
-        {
-
-            if (_stack.Count == 0) return;
-            Transform stack = _stack.Pop();
-            if (_stackOffsetY == 0)
-            {
-                _stackOffsetY = StackCap - 1;
-                _stackOffsetZ--;
-                return;
-            }
-            _stackOffsetY--;
-            stack.gameObject.SetActive(false);//test purpose
         }
 
         public void RemoveAllStack()
         {
-            //foreach(var stack in _stack)
-            //{
-            //    if (_stack.Count == 0) return;
-            //    Transform _transform = _stack.Pop();
-            //    if (_stackOffsetY == 0)
-            //    {
-            //        _stackOffsetY = StackCap - 1;
-            //        _stackOffsetZ--;
-            //        _transform.gameObject.SetActive(false);//test purpose
-            //        return;
-            //    }
-            //    _stackOffsetY--;
-            //    _transform.gameObject.SetActive(false);//test purpose
-            //}
-            //_stackOffsetZ = 0;
-            //_stackOffsetY = 0;
+            if (_stack.Count == 0) return;
+            if (type == StackType.Money) ScoreSignals.Instance.onIncreaseMoney(_stack.Count);
 
+            while (_stack.Count > 0)
+            {
+                
+                Transform value = _stack.Pop();
+                value.DOLocalMove(new Vector3(Random.Range(-2f, 2f), 0.75f, Random.Range(-2f, 2f)), .8f).SetEase(Ease.OutBack);
+                value.DOLocalRotate(Vector3.zero, 0.1f);
+                value.DOLocalMove(new Vector3(0, 0.75f, 0), 0.5f).SetDelay(1f).OnComplete(() =>
+                {
+                    
+                    value.tag = type.ToString();
+                    PoolSignals.onPutObjectBackToPool(value.gameObject, type.ToString());
+                });
+            }
 
+            ResetOffsets();
         }
 
-        
-
+        public void ResetOffsets()
+        {
+            _stackOffsetY = 0.2f;
+            _stackOffsetZ = 0;
+        }
     }
 }

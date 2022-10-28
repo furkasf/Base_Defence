@@ -26,12 +26,14 @@ namespace Assets.Scripts.Managers
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
+            _agent.enabled = false;
             _sphereCollider = GetComponent<SphereCollider>();
-            _stack = new StackManager(_stackHolder);
+            _stack = new StackManager(_stackHolder, StackType.Money);
         }
 
         public void Start()
         {
+            _agent.enabled = true;
             baseLocation = BaseSignals.Instance.onGetBaseWayPoint();
             outsideLocation = BaseSignals.Instance.onGetOutSideWayPoint();
         }
@@ -55,6 +57,8 @@ namespace Assets.Scripts.Managers
         }
 
         public void SearchMoney() => _sphereCollider.radius = 20f;
+
+        public float GetRadius() => _sphereCollider.radius;
 
         public void GotoMoney()
         {

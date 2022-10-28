@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Managers;
 using FSM;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.MoneyWorkerAi.Conditions
@@ -13,6 +12,5 @@ namespace Assets.Scripts.AI.MoneyWorkerAi.Conditions
             var manager = stateMachine.GetComponent<MoneyWorkerManager>();
             return manager.CheackWorkerReachBase();
         }
-
     }
 }

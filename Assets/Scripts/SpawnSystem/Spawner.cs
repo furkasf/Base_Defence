@@ -13,7 +13,7 @@ namespace Assets.Scripts.SpawnSystem
 
         public override IEnumerator Spawn()
         {
-            var waitForSeconds = new WaitForSeconds(1.5f);
+            var waitForSeconds = new WaitForSeconds(4.5f);
 
             while (PoolSignals.onGetPoolCurrentSize(_type.ToString()) > 0)
             {

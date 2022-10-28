@@ -1,11 +1,6 @@
 ﻿using Assets.Scripts.Enums;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Signals;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers.Player
@@ -16,16 +11,20 @@ namespace Assets.Scripts.Controllers.Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Hostage"))
+            Debug.Log("Player enter mine area");
+            if (other.CompareTag("Hostage"))
             {
-                HostageSignals.Instance.onAddStack(other.transform);
+                //HostageSignals.Instance.onAddStack(other.transform);
             }
             if (other.CompareTag("MineArea"))
             {
+                Debug.Log("Player enter mine area");
                 HostageSignals.Instance.onClearStack();
+                HostageSignals.Instance.onActivateMiner();
             }
-            if(other.CompareTag("GateInside"))
+            if (other.CompareTag("GateInside"))
             {
+                Debug.Log("gate inside");
                 manager.State = PlayerState.Inside;
                 manager.DisableAimLayer();
                 manager.ActivatePistol(false);

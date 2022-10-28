@@ -39,12 +39,12 @@ namespace Assets.Scripts.Managers
 
         private void OnEnable()
         {
-            PlayerSignals.Instance.onAddEnemyToList(transform);
+            //PlayerSignals.Instance.onAddEnemyToList(transform);
         }
 
         private void OnDisable()
         {
-            PlayerSignals.Instance.onRemoveEnemyToList(transform);
+           // PlayerSignals.Instance.onRemoveEnemyToList(transform);
         }
 
         public void GetDamage()

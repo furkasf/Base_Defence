@@ -11,17 +11,17 @@ namespace Commannds
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player"))
+            if(other.CompareTag("Player") || other.CompareTag("MoneyWorker"))
             {
-                gateTransform.DORotate(new Vector3(0,0,-90), 0.6f, RotateMode.LocalAxisAdd);
+                gateTransform.transform.DOLocalRotate(new Vector3(0, 0, -90), 0.6f); 
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") || other.CompareTag("MoneyWorker"))
             {
-                gateTransform.DORotate(new Vector3(0, 0, 90), 0.6f, RotateMode.LocalAxisAdd);
+                gateTransform.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.6f);
             }
         }
     }

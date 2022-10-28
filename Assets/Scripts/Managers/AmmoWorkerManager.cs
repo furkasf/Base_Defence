@@ -21,11 +21,13 @@ namespace Assets.Scripts.Managers
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
-            _girdStack = new StackManager(StackHolder.transform);
+            _agent.enabled = false;
+            _girdStack = new StackManager(StackHolder.transform, StackType.Money);
         }
 
         private void Start()
         {
+            _agent.enabled = true;
             _ammoStackShop = TurretSignals.Instance.onGetAmmoStackPosition();
             _tarretPool = TurretSignals.Instance.OnGetLowestNumberAmmoTurret();
         }
@@ -74,6 +76,7 @@ namespace Assets.Scripts.Managers
                 _tarretPool.AddAmmoToGrid(ammo);
             }
             _girdStack._stack.Clear();
+            _girdStack.ResetOffsets();
         }
 
         #endregion Utilitys

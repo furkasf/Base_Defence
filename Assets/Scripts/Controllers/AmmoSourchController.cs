@@ -35,6 +35,6 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        private void SendAmmosToWorker(AmmoWorkerManager pos, Transform ammo) => ammo.DOLocalMove(pos.transform.position, .7f).OnComplete(() => pos.AddAmmoToStack(ammo));
+        private void SendAmmosToWorker(AmmoWorkerManager pos, Transform ammo) => ammo.DOLocalMove(pos.transform.position, .8f).SetEase(Ease.InQuad).OnComplete(() => pos.AddAmmoToStack(ammo));
     }
 }

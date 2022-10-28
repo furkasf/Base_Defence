@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Signals;
 using DG.Tweening;
 using Keys;
 using Managers;
@@ -62,7 +63,7 @@ namespace Controllers
             velocity = new Vector3(_movementDirection.x * _movementData.MoveSpeed, velocity.y,
                 _movementDirection.z * _movementData.MoveSpeed);
             rigidBody.velocity = velocity;
-
+            HostageSignals.Instance.onLerpStack();
             if (_movementDirection != Vector3.zero)
             {
                 Quaternion toRotation = Quaternion.LookRotation(_movementDirection);

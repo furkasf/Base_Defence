@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1829415284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1829415285}
+  m_Layer: 0
+  m_Name: RealHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1829415285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829415284}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5449111136286769945}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &14965338583630926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,6 +1647,7 @@ GameObject:
   - component: {fileID: 213062188828132543}
   - component: {fileID: 213062188828132544}
   - component: {fileID: 4106706358346521573}
+  - component: {fileID: 213062188828132550}
   m_Layer: 0
   m_Name: MoneyWorker
   m_TagString: MoneyWorker
@@ -1697,7 +1728,7 @@ MonoBehaviour:
   _moneyPosition: {fileID: 0}
   baseLocation: {fileID: 0}
   outsideLocation: {fileID: 0}
-  _stackHolder: {fileID: 5449111136286769945}
+  _stackHolder: {fileID: 1829415285}
   physicController: {fileID: 4106706358346521573}
 --- !u!135 &213062188828132543
 SphereCollider:
@@ -1738,6 +1769,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1920160139817947357}
+--- !u!54 &213062188828132550
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932298755541259424}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5989224779343420796
 GameObject:
   m_ObjectHideFlags: 0
@@ -2195,7 +2242,8 @@ Transform:
   m_LocalRotation: {x: 0.008726558, y: 0.999962, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.5, z: -0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1829415285}
   m_Father: {fileID: 8864168786497202451}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 1}

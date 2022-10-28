@@ -17,6 +17,7 @@ namespace Assets.Scripts.Controllers
 
         private int _totalCreatedWorkerCount = 0;//by default
         private int _payedAmouth;
+        private float _timer;
 
         private void Start()
         {
@@ -56,7 +57,7 @@ namespace Assets.Scripts.Controllers
                 _totalCreatedWorkerCount++;
                 _payedAmouth = 0;
                 GameObject worker = PoolSignals.onGetObjectFormPool(PoolAbleType.AmmoWorker.ToString());
-                worker.transform.SetParent(ammoWorkerSpawnArea);
+                //worker.transform.SetParent(ammoWorkerSpawnArea);
                 worker.transform.position = ammoWorkerSpawnArea.position;
                 Save();
             }
@@ -76,9 +77,16 @@ namespace Assets.Scripts.Controllers
         {
             if (other.CompareTag("Player") && ScoreSignals.Instance.onGetMoney() > 0)
             {
-                _payedAmouth++;
-                text.text = (data.AmmoWorkerCost - _payedAmouth).ToString();
-                BuyNewWorker();
+                _timer += Time.smoothDeltaTime;
+                if(_timer > .01f)
+                {
+                    _payedAmouth++;
+                    text.text = (data.AmmoWorkerCost - _payedAmouth).ToString();
+                    ScoreSignals.Instance.onDecreaseMoney();
+                    BuyNewWorker();
+                    _timer = 0;
+                }
+                
             }
         }
 

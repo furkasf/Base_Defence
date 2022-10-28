@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Assets.Scripts.Signals;
+using DG.Tweening;
 using Enums;
 using Extentions.Grid;
 using Signals;
@@ -30,6 +31,7 @@ namespace Controllers
         public void RemoveAllDiamondFromGrid()
         {
             int total = _gems.Count;
+            ScoreSignals.Instance.onIncreaseDiamond(total);
             for (int i = 0; i < total; i++)
             {
                 var obj = _gems[0];
