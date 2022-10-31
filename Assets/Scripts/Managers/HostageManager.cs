@@ -52,6 +52,8 @@ namespace Assets.Scripts.Managers
         {
             if (IsInList)
             {
+                Miner.transform.position = transform.position;
+                Miner.transform.rotation = transform.rotation;
                 Miner.SetActive(true);
                 gameObject.SetActive(false);
             }

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Controllers;
 using Assets.Scripts.Controllers.Enemy;
+using Assets.Scripts.Signals;
 using Controllers;
 using Enums;
 using FSM;
@@ -34,18 +35,12 @@ namespace Assets.Scripts.Managers
         private void Start()
         {
             GetReferences();
+           // _animator.SetTrigger("Walking");
             _agent.enabled = true;
+            stateMachine.enabled = true;
+           
         }
 
-        private void OnEnable()
-        {
-            //PlayerSignals.Instance.onAddEnemyToList(transform);
-        }
-
-        private void OnDisable()
-        {
-           // PlayerSignals.Instance.onRemoveEnemyToList(transform);
-        }
 
         public void GetDamage()
         {
@@ -62,7 +57,7 @@ namespace Assets.Scripts.Managers
         {
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Walking") || _agent.speed != _animator.speed)
             {
-                _agent.speed = _animator.speed;
+                _agent.speed = _animator.speed + .5f;
                 _animator.SetTrigger("Walking");
                 _agent.SetDestination(target.position);
             }
@@ -91,6 +86,7 @@ namespace Assets.Scripts.Managers
         {
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
             {
+                PlayerSignals.Instance.onCheackCurrentTargetKilled(transform);
                 DropMoney();
                 stateMachine.enabled = false;
                 _agent.isStopped = true;
@@ -105,9 +101,9 @@ namespace Assets.Scripts.Managers
 
         public bool CheackDistanceWithPlayer() => Vector3.Distance(PlayerPossition.position, transform.position) <= 5;
 
-        public bool CheakTargerAttackAbel() => Vector3.Distance(PlayerPossition.position, transform.position) <= .5f;
+        public bool CheakTargerAttackAbel() => Vector3.Distance(PlayerPossition.position, transform.position) <= 1f;
 
-        public bool CheackEnemyReachTheTarget() => Vector3.Distance(target.position, transform.position) <= 1.5f;
+        public bool CheackEnemyReachTheTarget() => Vector3.Distance(target.position, transform.position) <= 2f;
 
         public bool IsDead() => Heath <= 0;
 
@@ -127,7 +123,7 @@ namespace Assets.Scripts.Managers
             for(int i = 0; i < 5; i++)
             {
                 GameObject money = PoolSignals.onGetObjectFormPool(PoolAbleType.Money.ToString());
-                money.transform.position = transform.position ;
+                money.transform.position = transform.position + new Vector3(0, 5,0 ) ;
             }
         }
 
@@ -136,8 +132,10 @@ namespace Assets.Scripts.Managers
         //settins for put back to pool
         public void PutToPool()
         {
-            PlayerSignals.Instance.onRemoveEnemyToList(transform);
-            stateMachine.enabled = true; ;
+            Debug.Log("pool worked");
+            PlayerSignals.Instance.onCheackCurrentTargetKilled(transform);
+            TurretSignals.Instance.onEnemyDead(transform);
+            stateMachine.enabled = true; 
             Heath = 15;
             meshController.OpenSaturation();
             PoolSignals.onPutObjectBackToPool(gameObject, "Enemy");

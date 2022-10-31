@@ -1,10 +1,10 @@
 ﻿using Assets.Scripts.Signals;
 using DG.Tweening;
-using Enums;
 using Signals;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Managers
 {
@@ -12,7 +12,6 @@ namespace Assets.Scripts.Managers
     {
         Ammo, Money
     }
-        
 
     public class StackManager
     {
@@ -21,30 +20,53 @@ namespace Assets.Scripts.Managers
         public const int StackCap = 5;
         private readonly StackType type;
         public float _stackOffsetY = 0.2f;
-        public float _stackOffsetZ = 0;
+        public float _stackOffsetZ;
 
         public StackManager(Transform holder, StackType type)
         {
             _holder = holder;
             this.type = type;
+            _stackOffsetZ = _holder.localPosition.z;
+        }
+
+        private void GetData()
+        {
+            if(type == StackType.Money)
+            {
+
+            }
+        }
+
+        public StackManager(Transform holder)
+        {
+            _holder = holder;
         }
 
         private void AddStackToHolder(Transform o)
         {
             o.parent = _holder;
             _stack.Push(o);
+            Debug.Log("stack count" + _stack.Count);
             o.localPosition = new Vector3(0, _stackOffsetY, _stackOffsetZ);
             o.localRotation = new Quaternion(0, 0, 0, 0);
+            if (type == StackType.Money)
+            {
+                o.localRotation = new Quaternion(-90, -90, 0, 0);
+            }
+           
         }
 
         public void AddStack(Transform o)
         {
-            Debug.Log("oofset : " + _stackOffsetY);
+            if(type == StackType.Money)
+            {
+                o.GetComponent<Rigidbody>().isKinematic = true;
+            }
             if (_stack.Count % StackCap != 0)
             {
                 o.tag = "Untagged";
+                _stackOffsetY += (type == StackType.Ammo) ?o.localScale.y : 0.2f;
                 AddStackToHolder(o);
-                _stackOffsetY += o.localScale.y;
                 return;
             }
             else
@@ -64,13 +86,11 @@ namespace Assets.Scripts.Managers
 
             while (_stack.Count > 0)
             {
-                
                 Transform value = _stack.Pop();
                 value.DOLocalMove(new Vector3(Random.Range(-2f, 2f), 0.75f, Random.Range(-2f, 2f)), .8f).SetEase(Ease.OutBack);
                 value.DOLocalRotate(Vector3.zero, 0.1f);
                 value.DOLocalMove(new Vector3(0, 0.75f, 0), 0.5f).SetDelay(1f).OnComplete(() =>
                 {
-                    
                     value.tag = type.ToString();
                     PoolSignals.onPutObjectBackToPool(value.gameObject, type.ToString());
                 });
@@ -79,10 +99,30 @@ namespace Assets.Scripts.Managers
             ResetOffsets();
         }
 
+        public void RemoveAllStack(Action<Transform> add)
+        {
+            Debug.Log("remoce stack");
+            Debug.Log("stack count " +_stack.Count);
+
+            if (_stack.Count == 0) return;
+
+            while (_stack.Count > 0)
+            {
+                Transform value = _stack.Pop();
+                Debug.Log("remoce stack");
+                Debug.Log("Value name" + value.name);
+                value.tag = type.ToString();
+                add(value);
+            }
+
+
+            ResetOffsets();
+        }
+
         public void ResetOffsets()
         {
             _stackOffsetY = 0.2f;
-            _stackOffsetZ = 0;
+            _stackOffsetZ = _holder.localPosition.z;
         }
     }
 }

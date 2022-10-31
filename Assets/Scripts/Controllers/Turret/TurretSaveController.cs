@@ -63,7 +63,7 @@ namespace Assets.Scripts.Controllers.Turret
             }
         }
 
-        public bool CheackTurretWorkerExist() => _turretWorkerIsExist;
+        public bool CheackTurretWorkerExist() => turretWoker.active;
 
         private void OnTriggerStay(Collider other)
         {

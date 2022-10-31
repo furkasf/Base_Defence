@@ -22,7 +22,7 @@ namespace Assets.Scripts.Managers
         {
             _agent = GetComponent<NavMeshAgent>();
             _agent.enabled = false;
-            _girdStack = new StackManager(StackHolder.transform, StackType.Money);
+            _girdStack = new StackManager(StackHolder.transform, StackType.Ammo);
         }
 
         private void Start()
@@ -71,12 +71,7 @@ namespace Assets.Scripts.Managers
 
         public void RemoveAllAmmoFromStack()
         {
-            foreach (var ammo in _girdStack._stack)
-            {
-                _tarretPool.AddAmmoToGrid(ammo);
-            }
-            _girdStack._stack.Clear();
-            _girdStack.ResetOffsets();
+            _girdStack.RemoveAllStack(_tarretPool.AddAmmoToGrid);
         }
 
         #endregion Utilitys

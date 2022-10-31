@@ -14,7 +14,7 @@ namespace Assets.Scripts.Controllers.MoneyWorker
                 manager.GetExistedMoney(other.transform);
             }
            
-            if(other.CompareTag("Base") && manager.GetRadius() <= 1)
+            if(other.CompareTag("GateOutside") && manager.GetRadius() <= 1)
             {
                 Debug.Log("Gate ise collided");
                 manager.RemoveMoneyFromStack();

@@ -20,10 +20,6 @@ namespace Controllers
                 manager.GetDamage();
             }
            
-            if(!manager.IsDead())
-            {
-                    
-            }
         }
         
     }

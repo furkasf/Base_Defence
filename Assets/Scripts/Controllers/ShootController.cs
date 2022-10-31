@@ -2,9 +2,7 @@
 using Enums;
 using Signals;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Assets.Scripts.Controllers
 {
@@ -12,26 +10,10 @@ namespace Assets.Scripts.Controllers
     {
         public Transform riffle;
 
-        [ShowInInspector] private List<Transform> enemys = new List<Transform>();
-
-        [ShowInInspector] private Transform _currentTarget;
+        [ShowInInspector] private Transform _currentTarget = null;
         private const float _distance = 15;
-        private const float _delay = 1f;
+        private const float _delay = .3f;
         private float _timer = 0f;
-
-        private void FindClosestTarget()
-        {
-            if (_currentTarget != null) return;
-
-            foreach (var enemy in enemys)
-            {
-                if (Vector3.Distance(transform.position, enemy.position) <= _distance)
-                {
-                    _currentTarget = enemy;
-                    break;
-                }
-            }
-        }
 
         private void LockTheTarget(Transform target)
         {
@@ -43,49 +25,56 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        public void OnAddEnemyToList(Transform enemy)
-        {
-            if (!enemys.Contains(enemy))
-            {
-                enemys.Remove(enemy);
-                enemys.TrimExcess();
-            }
-        }
-
-        public void OnRemoveEnemyToList(Transform enemy)
-        {
-            if (enemys.Contains(enemy))
-            {
-                enemys.Remove(enemy);
-                enemys.TrimExcess();
-            }
-        }
-
         private void Shoot()
         {
             if (_currentTarget != null)
             {
                 var _bullet = PoolSignals.onGetObjectFormPool(PoolAbleType.GunBullet.ToString());
                 _bullet.transform.position = riffle.position;
-                Vector3 target = _currentTarget.position - _bullet.transform.position;
-                _bullet.transform.DOMove(target, 0.8f).SetRelative().OnComplete(() =>
+                Vector3 target = new Vector3(_currentTarget.position.x +2, _currentTarget.position.y , _currentTarget.position.z +2) - _bullet.transform.position;
+               
+
+                _bullet.transform.DOMove(target, 0.4f).SetRelative().OnComplete(() =>
                 {
                     PoolSignals.onPutObjectBackToPool(_bullet, PoolAbleType.GunBullet.ToString());
                 });
+
+
                 _currentTarget = Vector3.Distance(transform.position, _currentTarget.position) <= _distance && _currentTarget != null ? _currentTarget : null;
+            }
+        }
+
+        public void OnCheackCurrentTargetKilled(Transform enemy)
+        {
+            if (enemy == _currentTarget)
+            {
+                _currentTarget = null;
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.CompareTag("Enemy") && _currentTarget == null)
+            {
+                _currentTarget = other.transform;
+                Debug.Log("enemy in bullet collider");
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Enemy") && _currentTarget == other.transform)
+            {
+                _currentTarget = null;
             }
         }
 
         private void Update()
         {
-            //only work in outside
-            if (PlayerSignals.Instance.onGetPlayerState() == Enums.PlayerState.Inside) return;
-
             _timer += Time.deltaTime;
 
-            if (_timer > _delay)
+            if (_timer > _delay && _currentTarget != null)
             {
-                FindClosestTarget();
                 Shoot();
                 _timer = 0;
             }

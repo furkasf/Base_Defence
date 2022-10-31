@@ -25,6 +25,8 @@ TagManager:
   - Gate
   - TurretAmmoHolder
   - Hostage
+  - AmmoHolder
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -37,7 +39,7 @@ TagManager:
   - MoneyWorker
   - Money
   - Gate
-  - 
+  - BulletArea
   - 
   - 
   - 

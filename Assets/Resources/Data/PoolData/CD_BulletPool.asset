@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a39cb8af48705429a184863524a8ee, type: 3}
   m_Name: CD_BulletPool
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 4048595076606031853, guid: d556f77ace486c5419185e225d80df85, type: 3}
+  Prefab: {fileID: 3164174772441365682, guid: 88be8544fbda1b34a9d2e5d15e836ee8, type: 3}
   Key: Bullet
   InitialSize: 50
   IsExtensible: 1

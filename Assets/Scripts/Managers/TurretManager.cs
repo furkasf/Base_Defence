@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Controllers.Turret;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 namespace Assets.Scripts.Managers
 {
@@ -31,10 +32,23 @@ namespace Assets.Scripts.Managers
 
         #endregion Subscriptions
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                TurretAttackController.PlayerInTurret(true);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                TurretAttackController.PlayerInTurret(false);
+            }
+        }
         public bool CheackTurretWorkerIsExist() => TurretSaveController.CheackTurretWorkerExist();
 
-        public void GiveAmmoToTurrret() => TurretAmmoController.GiveAmmoToTurret();
-
-        public void GetAmmoFromStack() => TurretAttackController.AccesAmmo(1);
+        public void LoadAmmo() => TurretAmmoController.LoadAmmo(TurretAttackController.UpdateAmmo);
     }
 }

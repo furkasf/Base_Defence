@@ -1,6 +1,8 @@
-﻿using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Controllers.Turret;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Signals;
+using Signals;
 using UnityEngine;
 
 namespace Assets.Scripts.Controllers.Player
@@ -31,9 +33,25 @@ namespace Assets.Scripts.Controllers.Player
             }
             if (other.CompareTag("GateOutside"))
             {
+                manager.MoneyStackManager.RemoveAllStack();
                 manager.State = PlayerState.Outside;
                 manager.EnableAimLayer();
                 manager.ActivatePistol(true);
+            }
+            if(other.CompareTag("Money"))
+            {
+                manager.MoneyStackManager.AddStack(other.transform);
+            }
+           
+            if (other.CompareTag("AmmoHolder"))
+            {
+                var turretAmmoController = other.GetComponent<TurretAmmoController>();
+                manager.AmmoStackManager.RemoveAllStack(turretAmmoController.AddAmmoToGrid);
+            }
+
+            if(other.CompareTag("Turret"))
+            {
+                PlayerSignals.Instance.onPlayerEnterTurretArea();
             }
         }
     }

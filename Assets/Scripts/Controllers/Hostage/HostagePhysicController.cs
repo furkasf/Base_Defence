@@ -14,6 +14,7 @@ namespace Assets.Scripts.Controllers.Hostage
             if(other.CompareTag("Player") && !manager.IsInList)
             {
                 manager.GoesRunAnimation();
+                manager.IsInList = true;
                 HostageSignals.Instance.onAddStack(transform);
             }
         }

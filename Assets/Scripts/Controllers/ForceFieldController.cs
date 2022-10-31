@@ -12,6 +12,7 @@ namespace Assets.Scripts.Controllers
 
         private const int _price = 50;
         private int _payedAmounth;
+        private float _timer;
 
         private void Start()
         {
@@ -22,11 +23,16 @@ namespace Assets.Scripts.Controllers
         {
             if(other.CompareTag("Player"))
             {
-                Debug.Log("player inside force field");
-                _payedAmounth++;
-                text.text = (_price - 1).ToString();
-                ScoreSignals.Instance.onDecreaseMoney();
-                OpenForceField();
+                _timer += Time.smoothDeltaTime;
+
+                if(_timer > 0.1f)
+                {
+                    _payedAmounth++;
+                    text.text = (_price - _payedAmounth).ToString();
+                    ScoreSignals.Instance.onDecreaseMoney();
+                    OpenForceField();
+                    _timer = 0;
+                }
             }
         }
 

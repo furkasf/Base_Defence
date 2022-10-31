@@ -11,8 +11,11 @@ namespace Assets.Scripts.Managers
     public class PlayerManager : MonoBehaviour
     {
         public PlayerState State;
+        public StackManager MoneyStackManager;
+        public StackManager AmmoStackManager;
 
         [SerializeField] GameObject pistol;
+        [SerializeField] Transform stackHolder;
         [SerializeField] private Rigidbody rigidBody;
         [SerializeField] private ShootController shootController;
         [SerializeField] private PlayerMovementController movementController;
@@ -20,9 +23,14 @@ namespace Assets.Scripts.Managers
 
         private PlayerData _playerData;
         private bool _isPlayerMoving;
+        private bool _isPlayerUsingTurret;
+        private Transform _parent;
 
         private void Awake()
         {
+            _parent = transform;
+            MoneyStackManager = new StackManager(stackHolder, StackType.Money);
+            AmmoStackManager = new StackManager(stackHolder, StackType.Ammo);
             State = PlayerState.Inside;
             _playerData = GetPlayerData();
             SetPlayerDataToControllers();
@@ -40,8 +48,11 @@ namespace Assets.Scripts.Managers
         private void SubscribeEvents()
         {
             PlayerSignals.Instance.onGetPlayerState += OnGetPlayerState;
-            PlayerSignals.Instance.onAddEnemyToList += shootController.OnAddEnemyToList;
-            PlayerSignals.Instance.onRemoveEnemyToList += shootController.OnRemoveEnemyToList;
+            PlayerSignals.Instance.onAddAmmoToPlayer += OnAddAmmoToPlayer;
+            PlayerSignals.Instance.onGetPlayerTransfrom += OnGetPlayerTransform;
+            PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerUseTurret;
+            PlayerSignals.Instance.onPlayerLeaveTurretArea += OnPlayerLeaveTurret;
+            PlayerSignals.Instance.onCheackCurrentTargetKilled += shootController.OnCheackCurrentTargetKilled;
 
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
@@ -54,8 +65,12 @@ namespace Assets.Scripts.Managers
         private void UnsubscribeEvents()
         {
             PlayerSignals.Instance.onGetPlayerState -= OnGetPlayerState;
-            PlayerSignals.Instance.onAddEnemyToList -= shootController.OnAddEnemyToList;
-            PlayerSignals.Instance.onRemoveEnemyToList -= shootController.OnRemoveEnemyToList;
+            PlayerSignals.Instance.onAddAmmoToPlayer -= OnAddAmmoToPlayer;
+            PlayerSignals.Instance.onGetPlayerTransfrom -= OnGetPlayerTransform;
+            PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerUseTurret;
+            PlayerSignals.Instance.onPlayerLeaveTurretArea -= OnPlayerLeaveTurret;
+            PlayerSignals.Instance.onCheackCurrentTargetKilled -= shootController.OnCheackCurrentTargetKilled;
+
 
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
@@ -86,6 +101,7 @@ namespace Assets.Scripts.Managers
 
         private void OnPointerDown()
         {
+            if (_isPlayerUsingTurret) return;
             ActivateMovement();
             animationController.PlayRunAnimation();
             _isPlayerMoving = true;
@@ -93,10 +109,33 @@ namespace Assets.Scripts.Managers
 
         private void OnInputReleased()
         {
+            if (_isPlayerUsingTurret) return;
             DeactivateMovement();
             animationController.PlayIdleAnimation();
             _isPlayerMoving = false;
         }
+
+        private void OnPlayerUseTurret() 
+        {
+            _isPlayerUsingTurret = true;
+            //can activate turrret animation
+            DeactivateMovement();
+        }
+
+        private void OnPlayerLeaveTurret()//onnec to signal 
+        {
+            _isPlayerUsingTurret = false;
+            transform.SetParent(_parent);
+            ActivateMovement();
+        }
+
+        private void OnInputDragged(InputParams inputParams)
+        {
+            if (_isPlayerUsingTurret) return;
+            movementController.UpdateInputValue(inputParams);
+        }
+
+        private Transform OnGetPlayerTransfrom() => transform;
 
         private PlayerState OnGetPlayerState() => State;
 
@@ -106,11 +145,11 @@ namespace Assets.Scripts.Managers
 
         public void DisableAimLayer() => animationController.DisableAimLayer();
 
-        private void OnInputDragged(InputParams inputParams) => movementController.UpdateInputValue(inputParams);
-
         private void ActivateMovement() => movementController.ActivateMovement();
 
         public void DeactivateMovement() => movementController.DeactivateMovement();
+
+        public void OnAddAmmoToPlayer(Transform ammo) => AmmoStackManager.AddStack(ammo);
 
         private Transform OnGetPlayerTransform() => transform;
 

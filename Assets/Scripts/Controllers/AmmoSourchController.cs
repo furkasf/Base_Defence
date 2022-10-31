@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Managers;
+using static UnityEditor.PlayerSettings;
 
 namespace Assets.Scripts.Controllers
 {
@@ -23,6 +24,10 @@ namespace Assets.Scripts.Controllers
                 AmmoWorkerManager controller = other.GetComponent<AmmoWorkerManager>();
                 GetAmmoFromPool(controller);
             }
+            if(other.CompareTag("Player"))
+            {
+                GetAmmoFromPool(other.transform);
+            }
         }
 
         private void GetAmmoFromPool(AmmoWorkerManager ammoController)
@@ -35,6 +40,17 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        private void SendAmmosToWorker(AmmoWorkerManager pos, Transform ammo) => ammo.DOLocalMove(pos.transform.position, .8f).SetEase(Ease.InQuad).OnComplete(() => pos.AddAmmoToStack(ammo));
+        private void GetAmmoFromPool(Transform player)
+        {
+            for (int i = 0; i < _defaultAmmoSize; i++)
+            {
+                GameObject obj = PoolSignals.onGetObjectFormPool(PoolAbleType.Ammo.ToString());
+                obj.transform.position = transform.position;
+                SendAmmoToPlayert(player, obj.transform);
+            }
+        }
+
+        private void SendAmmosToWorker(AmmoWorkerManager pos, Transform ammo) => ammo.DOLocalMove(pos.transform.position, .2f).SetEase(Ease.InQuad).OnComplete(() => pos.AddAmmoToStack(ammo));
+        private void SendAmmoToPlayert(Transform player, Transform ammo) => ammo.DOLocalMove(player.position, .2f).SetEase(Ease.InQuad).OnComplete(() => PlayerSignals.Instance.onAddAmmoToPlayer(ammo));
     }
 }

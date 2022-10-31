@@ -26,7 +26,7 @@ namespace Managers
         {
             _agent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
-            _agent.speed = _animator.speed;
+            //_agent.speed = _animator.speed;
         }
 
         private void Start()

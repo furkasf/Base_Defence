@@ -1,8 +1,10 @@
 ﻿using Assets.Scripts.Managers;
 using DG.Tweening;
+using Enums;
 using Extentions.Grid;
+using Signals;
 using Sirenix.OdinInspector;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,7 +15,7 @@ namespace Assets.Scripts.Controllers.Turret
     {
         public List<Transform> Ammos = new List<Transform>();
 
-        [SerializeField] TurretManager manager;
+        [SerializeField] private TurretManager manager;
         [SerializeField] private GridManager grid;
 
         public void AddAmmoToGrid(Transform ammo)
@@ -25,22 +27,26 @@ namespace Assets.Scripts.Controllers.Turret
             ammo.transform.DOMove(position, 1f);
         }
 
-        public void RemoveAmmo()
+        public void LoadAmmo(Action updateAmmo)
         {
-            Ammos.Remove(Ammos.Last());
-            Ammos.TrimExcess();
-            grid.ReleaseObjectOnGrid();
-        }
-
-        public void GiveAmmoToTurret()
-        {
-            if(Ammos.Count > 0)
+            if (Ammos.Count > 0)
             {
-                manager.GetAmmoFromStack();
+                updateAmmo();
                 RemoveAmmo();
             }
         }
 
         public int GetAmmoNumber() => Ammos.Count;
+
+        private void RemoveAmmo()
+        {
+            if (Ammos.Count > 0)
+            {
+                var last = Ammos.Last();
+                Ammos.Remove(last);
+                Ammos.TrimExcess();
+                PoolSignals.onPutObjectBackToPool(last.gameObject, PoolAbleType.Ammo.ToString());
+            }
+        }
     }
 }
