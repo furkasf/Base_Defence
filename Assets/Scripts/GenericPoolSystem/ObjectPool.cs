@@ -15,18 +15,20 @@ namespace GenericPoolSystem
         private readonly Func<T> _factoryMethod;
         private readonly Action<T> _turnOnCallback;
         private readonly Action<T> _turnOffCallback;
+        private readonly Action<T> _putHolder;
 
         #endregion Private Variables
 
         #endregion Self Variables
 
-        public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
+        public ObjectPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, Action<T> putHoler, int initialStock = 0, bool isDynamic = true)
         {
             _factoryMethod = factoryMethod;
             _isDynamic = isDynamic;
 
             _turnOffCallback = turnOffCallback;
             _turnOnCallback = turnOnCallback;
+            _putHolder = putHoler;
 
             _currentStock = new Queue<T>();
 
@@ -34,8 +36,8 @@ namespace GenericPoolSystem
             {
                 var o = _factoryMethod();
                 _turnOffCallback(o);
+                _putHolder(o);
                 _currentStock.Enqueue(o);
-                UnityEngine.Debug.Log("IsCreated");
             }
         }
 

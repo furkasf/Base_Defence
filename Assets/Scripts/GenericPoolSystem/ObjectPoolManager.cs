@@ -24,10 +24,10 @@ namespace GenericPoolSystem
 
         #region Pool Initializations
 
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, string poolName, int initialStock = 0, bool isDynamic = true)
+        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, Action<T> putHolder, string poolName, int initialStock = 0, bool isDynamic = true)
         {
             if (!_pools.ContainsKey(poolName))
-                _pools.Add(poolName, new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
+                _pools.Add(poolName, new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, putHolder, initialStock, isDynamic));
         }
 
         public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, Queue<T> initialStock, string poolName, bool isDynamic = true) where T : AbstractObjectPool, new()

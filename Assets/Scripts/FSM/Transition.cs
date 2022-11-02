@@ -2,6 +2,7 @@
 
 namespace FSM
 {
+    [CreateAssetMenu(menuName = "FSM/Transition")]
     public sealed class Transition : ScriptableObject
     {
         public Decision Decide;
@@ -10,9 +11,9 @@ namespace FSM
 
         public void Execute(BaseStateMachine stateMachine)
         {
-            if(Decide.Decide(stateMachine) && !(TrueState is RemainInState))
+            if (Decide.Decide(stateMachine) && !(TrueState is RemainInState))
                 stateMachine.CurrentState = TrueState;
-            else if(!(FalseState is RemainInState))
+            else if (!(FalseState is RemainInState))
                 stateMachine.CurrentState = FalseState;
         }
     }

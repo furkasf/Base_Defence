@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c377170ff5865b4fb933cc85b725fc9, type: 3}
+  m_Name: CD_MinerWorkerPool
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 5932298755541259424, guid: 71abbc8dec3107a44b5aad7129589a26, type: 3}
+  Key: MinerWorker
+  InitialSize: 20
+  IsExtensible: 1

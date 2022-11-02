@@ -8,8 +8,18 @@ namespace Enums
 {
     public enum PoolAbleType
     {
-        Money,
-        Diamond,
-        Boss
+        Money,//d
+        Diamond,//d
+        Boss,//d
+        Enemy,
+        Ammo,//d
+        Bullet,//d
+        Bomb,
+        TurretWorker,
+        GunBullet,
+        MoneyWorker,//d
+        MinerWorker,//d
+        AmmoWorker,//d
+        Soldier
     }
 }

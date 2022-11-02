@@ -10,7 +10,7 @@ namespace Signals
         public Action onDisableInput;
         public Action onFirstTimeTouchTaken;
         public Action onInputTaken;
-        public Action<HorizontalInputParams> onInputDragged;
+        public Action<InputParams> onInputDragged;
         public Action onInputReleased;
     }
 }

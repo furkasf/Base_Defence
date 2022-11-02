@@ -3,7 +3,34 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - EnemyBaseTarget
+  - Miner
+  - Solder
+  - MoneyWorker
+  - AmmoWorker
+  - Boss
+  - Bullet
+  - Money
+  - StackContainer
+  - Base
+  - Ammo
+  - MineArea
+  - Turret
+  - GateInside
+  - StockpileSpot
+  - GateOutside
+  - AmmoWarehouse
+  - GemSpot
+  - Gate
+  - TurretAmmoHolder
+  - Hostage
+  - AmmoHolder
+  - Enemy
+  - Worker
+  - MilitaryTent
+  - BombTarget
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -11,14 +38,14 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ForceField
+  - Enemy
+  - MoneyWorker
+  - Money
+  - Gate
+  - BulletArea
+  - PlayerDetect
+  - Player
   - 
   - 
   - 

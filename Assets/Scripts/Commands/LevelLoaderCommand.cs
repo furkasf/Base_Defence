@@ -6,11 +6,6 @@ namespace Commannds
 {
     public class LevelLoaderCommand 
     {
-        /// <summary>
-        /// first async level load prototype
-        /// <returns></returns>
-
-
         public async void LevelLoadAsync(int _levelID, Transform levelHolder, CancellationTokenSource cancellationTokenSource)
         {
 

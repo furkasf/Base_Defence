@@ -12,8 +12,8 @@ namespace FSM
         public override void Execute(BaseStateMachine stateMachine)
         {
             foreach (var action in Actions)
-                action.Execure(stateMachine);
-            foreach (var transition in Transitions)
+                action.Execute(stateMachine);
+            foreach (Transition transition in Transitions)
                 transition.Execute(stateMachine);
         }
     }
