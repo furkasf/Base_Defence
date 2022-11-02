@@ -9,6 +9,7 @@ namespace Assets.Scripts.Controllers.Player
 
         private const string _run = "Run";
         private const string _idle = "Idle";
+        private const string _turret = "Turret";
 
         private Animator _animator;
 
@@ -26,6 +27,8 @@ namespace Assets.Scripts.Controllers.Player
         {
             _animator.SetTrigger(_idle);
         }
+
+        public void UseTurret() => _animator.SetTrigger(_turret);
 
         public void EnableAimLayer() => _animator.SetLayerWeight(1, 1);
 

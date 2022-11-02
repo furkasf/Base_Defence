@@ -27,6 +27,10 @@ TagManager:
   - Hostage
   - AmmoHolder
   - Enemy
+  - Worker
+  - MilitaryTent
+  - BombTarget
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -40,8 +44,8 @@ TagManager:
   - Money
   - Gate
   - BulletArea
-  - 
-  - 
+  - PlayerDetect
+  - Player
   - 
   - 
   - 

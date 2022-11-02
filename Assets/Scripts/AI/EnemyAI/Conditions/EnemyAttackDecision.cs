@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.EnemyAI.Conditions
 {
-    [CreateAssetMenu(menuName = "FSM/Decision/Enemy/EnemyAttrackDecision")]
+    [CreateAssetMenu(menuName = "FSM/Decision/Enemy/EnemyAttrackDecision", fileName = "EnemyAttackDecision")]
     public class EnemyAttackDecision : Decision
     {
         public override bool Decide(BaseStateMachine stateMachine)

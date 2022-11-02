@@ -9,6 +9,7 @@ namespace Assets.Scripts.Signals
     {
         public Func<Transform> onGetAmmoStackPosition;
         public Func<TurretAmmoController> OnGetLowestNumberAmmoTurret;
+        public Func<bool> onCheackTurretWorkerIsExist;
         public Action<Transform> onEnemyDead;
     }
 }

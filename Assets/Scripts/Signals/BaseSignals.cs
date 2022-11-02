@@ -11,6 +11,6 @@ namespace Signals
         public Func<Transform> OnGetRandomPoint;
         public Func<Transform> onGetBaseWayPoint;
         public Func<Transform> onGetOutSideWayPoint;
-
+        public Func<float> onGetReadius;
     }
 }

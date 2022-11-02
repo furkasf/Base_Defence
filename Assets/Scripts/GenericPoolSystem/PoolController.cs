@@ -67,6 +67,7 @@ namespace GenericPoolSystem
 
         private void OnPutObjectBackToPool(GameObject gameObject, string poolKey)
         {
+            gameObject.transform.parent = transform;
             _poolManager.ReturnObject<GameObject>(gameObject, poolKey);
         }
 

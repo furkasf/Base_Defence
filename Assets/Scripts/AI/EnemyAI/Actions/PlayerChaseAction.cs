@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.EnemyAI.Actions
 {
-    [CreateAssetMenu(menuName = "FSM/Action/Enemy/PlayerChaseAction")]
+    [CreateAssetMenu(menuName = "FSM/Action/Enemy/PlayerChaseAction" , fileName = "PlayerChaseAction")]
     public class PlayerChaseAction : FSMAction
     {
         public override void Execute(BaseStateMachine stateMachine)

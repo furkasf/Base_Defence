@@ -8,7 +8,7 @@ namespace Assets.Scripts.Controllers
 {
     public class ShootController : MonoBehaviour
     {
-        public Transform riffle;
+        public Transform Mizzle;
 
         [ShowInInspector] private Transform _currentTarget = null;
         private const float _distance = 15;
@@ -27,18 +27,14 @@ namespace Assets.Scripts.Controllers
 
         private void Shoot()
         {
-            if (_currentTarget != null)
+            if (_currentTarget != null && PlayerSignals.Instance.onGetPlayerState() == Enums.PlayerState.Outside)
             {
-                var _bullet = PoolSignals.onGetObjectFormPool(PoolAbleType.GunBullet.ToString());
-                _bullet.transform.position = riffle.position;
-                Vector3 target = new Vector3(_currentTarget.position.x +2, _currentTarget.position.y , _currentTarget.position.z +2) - _bullet.transform.position;
-               
-
-                _bullet.transform.DOMove(target, 0.4f).SetRelative().OnComplete(() =>
-                {
-                    PoolSignals.onPutObjectBackToPool(_bullet, PoolAbleType.GunBullet.ToString());
-                });
-
+                GameObject bullet = PoolSignals.onGetObjectFormPool(PoolAbleType.GunBullet.ToString());
+                bullet.transform.rotation = Mizzle.rotation;
+                bullet.transform.position = Mizzle.position;
+                Vector3 enemy = _currentTarget.position;
+                Vector3 target = enemy - bullet.transform.position;
+                bullet.transform.DOMove(target, 0.5f).SetRelative().OnComplete(() => PoolSignals.onPutObjectBackToPool(bullet, PoolAbleType.Bullet.ToString()));
 
                 _currentTarget = Vector3.Distance(transform.position, _currentTarget.position) <= _distance && _currentTarget != null ? _currentTarget : null;
             }

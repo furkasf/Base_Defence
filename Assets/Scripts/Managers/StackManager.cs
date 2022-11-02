@@ -19,21 +19,32 @@ namespace Assets.Scripts.Managers
         public Transform _holder;
         public const int StackCap = 5;
         private readonly StackType type;
-        public float _stackOffsetY = 0.2f;
+        public float _stackOffsetY;
         public float _stackOffsetZ;
+        public float _offsety;
+        public float _offsetz;
 
         public StackManager(Transform holder, StackType type)
         {
             _holder = holder;
             this.type = type;
             _stackOffsetZ = _holder.localPosition.z;
+            SetoffSets();
         }
 
-        private void GetData()
+        private void SetoffSets()
         {
             if(type == StackType.Money)
             {
-
+                _stackOffsetY = 0.2f;
+                _stackOffsetZ = 0.1f;
+                return;
+            }
+            if (type == StackType.Ammo)
+            {
+                _stackOffsetY = 0.55f;
+                _stackOffsetZ = 0.5f;
+                return;
             }
         }
 
@@ -46,9 +57,10 @@ namespace Assets.Scripts.Managers
         {
             o.parent = _holder;
             _stack.Push(o);
-            Debug.Log("stack count" + _stack.Count);
-            o.localPosition = new Vector3(0, _stackOffsetY, _stackOffsetZ);
+
+            o.localPosition = new Vector3(0, _offsety, _offsetz);
             o.localRotation = new Quaternion(0, 0, 0, 0);
+
             if (type == StackType.Money)
             {
                 o.localRotation = new Quaternion(-90, -90, 0, 0);
@@ -61,19 +73,20 @@ namespace Assets.Scripts.Managers
             if(type == StackType.Money)
             {
                 o.GetComponent<Rigidbody>().isKinematic = true;
+                o.GetComponent<BoxCollider>().enabled = false;
             }
             if (_stack.Count % StackCap != 0)
             {
                 o.tag = "Untagged";
-                _stackOffsetY += (type == StackType.Ammo) ?o.localScale.y : 0.2f;
+                _offsety += _stackOffsetY;
                 AddStackToHolder(o);
                 return;
             }
             else
             {
                 o.tag = "Untagged";
-                _stackOffsetY = 0.2f;
-                _stackOffsetZ += o.localScale.z;
+                _offsety = 0;
+                _offsetz += _stackOffsetZ;
                 AddStackToHolder(o);
                 return;
             }
@@ -87,9 +100,9 @@ namespace Assets.Scripts.Managers
             while (_stack.Count > 0)
             {
                 Transform value = _stack.Pop();
-                value.DOLocalMove(new Vector3(Random.Range(-2f, 2f), 0.75f, Random.Range(-2f, 2f)), .8f).SetEase(Ease.OutBack);
-                value.DOLocalRotate(Vector3.zero, 0.1f);
-                value.DOLocalMove(new Vector3(0, 0.75f, 0), 0.5f).SetDelay(1f).OnComplete(() =>
+                value.DOLocalMove(new Vector3(Random.Range(-2f, 2f), 0.75f, Random.Range(-2f, 2f)), .02f).SetEase(Ease.OutBack);
+                value.DOLocalRotate(Vector3.zero, 0.02f);
+                value.DOLocalMove(new Vector3(0, 0.75f, 0), 0.2f).OnComplete(() =>
                 {
                     value.tag = type.ToString();
                     PoolSignals.onPutObjectBackToPool(value.gameObject, type.ToString());
@@ -101,28 +114,23 @@ namespace Assets.Scripts.Managers
 
         public void RemoveAllStack(Action<Transform> add)
         {
-            Debug.Log("remoce stack");
-            Debug.Log("stack count " +_stack.Count);
 
             if (_stack.Count == 0) return;
 
             while (_stack.Count > 0)
             {
                 Transform value = _stack.Pop();
-                Debug.Log("remoce stack");
-                Debug.Log("Value name" + value.name);
                 value.tag = type.ToString();
                 add(value);
             }
-
 
             ResetOffsets();
         }
 
         public void ResetOffsets()
         {
-            _stackOffsetY = 0.2f;
-            _stackOffsetZ = _holder.localPosition.z;
+            _offsety = 0;
+            _offsetz = 0;
         }
     }
 }

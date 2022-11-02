@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Controllers.Turret;
+using Assets.Scripts.Signals;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -19,10 +20,13 @@ namespace Assets.Scripts.Managers
 
         private void Subscribe()
         {
+            TurretSignals.Instance.onCheackTurretWorkerIsExist += OnCheackTurretWorkerIsExist;
         }
 
         private void UnSubscribe()
         {
+            TurretSignals.Instance.onCheackTurretWorkerIsExist -= OnCheackTurretWorkerIsExist;
+
         }
 
         private void OnDisable()
@@ -34,20 +38,14 @@ namespace Assets.Scripts.Managers
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && !OnCheackTurretWorkerIsExist())
             {
                 TurretAttackController.PlayerInTurret(true);
             }
         }
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                TurretAttackController.PlayerInTurret(false);
-            }
-        }
-        public bool CheackTurretWorkerIsExist() => TurretSaveController.CheackTurretWorkerExist();
+      
+        public bool OnCheackTurretWorkerIsExist() => TurretSaveController.CheackTurretWorkerExist();
 
         public void LoadAmmo() => TurretAmmoController.LoadAmmo(TurretAttackController.UpdateAmmo);
     }

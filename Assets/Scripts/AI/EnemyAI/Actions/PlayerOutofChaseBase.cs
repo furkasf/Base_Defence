@@ -10,7 +10,7 @@ namespace Assets.Scripts.AI.EnemyAI.Actions
         public override bool Decide(BaseStateMachine stateMachine)
         {
             var manager = stateMachine.GetComponent<EnemyManager>();
-            if (!manager.CheackDistanceWithPlayer())
+            if (!manager.CheackPlayerFollowAble())
             {
                 return true;
             }

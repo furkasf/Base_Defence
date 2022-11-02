@@ -14,6 +14,7 @@ namespace Enums
         Enemy,
         Ammo,//d
         Bullet,//d
+        Bomb,
         TurretWorker,
         GunBullet,
         MoneyWorker,//d

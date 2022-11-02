@@ -72,6 +72,7 @@ namespace Assets.Scripts.Controllers.Turret
             }
             else
             {
+                Debug.Log("player use turret");
                 PlayerUseTurret();
             }
         }
@@ -79,17 +80,18 @@ namespace Assets.Scripts.Controllers.Turret
         public void Fire()
         {
             Transform bullet = GetAmmoFromPool();
+            bullet.parent = Mizzle.transform;
             bullet.rotation = Mizzle.rotation;
             bullet.position = Mizzle.position;
             Vector3 enemy = enemies[0].position;
             Vector3 target = enemy - bullet.position;
-            bullet.DOMove(target, 0.5f).SetRelative().OnComplete(() => PutAmmoBackToPool(bullet.gameObject));
+            bullet.DOMove(target, 0.1f).SetRelative().OnComplete(() => PutAmmoBackToPool(bullet.gameObject));
             AmmoCount--;
         }
 
         public void AttackWithWorker()
         {
-            if (!manager.CheackTurretWorkerIsExist()) return;
+            if (!manager.OnCheackTurretWorkerIsExist()) return;
 
             if (_canShoot && enemies.Count > 0)
             {

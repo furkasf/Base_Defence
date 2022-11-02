@@ -36,9 +36,9 @@ namespace Controllers
             {
                 var obj = _gems[0];
 
-                obj.transform.DOLocalMove(new Vector3(Random.Range(-2f, 2f), 0.75f, Random.Range(-2f, 2f)), 1f).SetEase(Ease.OutBack);
+                obj.transform.DOLocalMove(new Vector3(Random.Range(-2f, 2f), 0.75f, Random.Range(-2f, 2f)), .3f).SetEase(Ease.OutBack);
                 obj.transform.DOLocalRotate(Vector3.zero, 0.1f);
-                obj.transform.DOLocalMove(new Vector3(0, 0.75f, 0), 0.5f).SetDelay(1f).OnComplete(() =>
+                obj.transform.DOLocalMove(new Vector3(0, 0.75f, 0), 0.2f).SetDelay(.5f).OnComplete(() =>
                 {
                     PoolSignals.onPutObjectBackToPool(obj.gameObject, PoolAbleType.Diamond.ToString());
                 });

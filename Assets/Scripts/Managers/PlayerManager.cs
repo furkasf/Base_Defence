@@ -13,6 +13,8 @@ namespace Assets.Scripts.Managers
         public PlayerState State;
         public StackManager MoneyStackManager;
         public StackManager AmmoStackManager;
+        public PlayerHealtController HealthController;
+        public int Health = 100;
 
         [SerializeField] GameObject pistol;
         [SerializeField] Transform stackHolder;
@@ -53,6 +55,7 @@ namespace Assets.Scripts.Managers
             PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerUseTurret;
             PlayerSignals.Instance.onPlayerLeaveTurretArea += OnPlayerLeaveTurret;
             PlayerSignals.Instance.onCheackCurrentTargetKilled += shootController.OnCheackCurrentTargetKilled;
+            PlayerSignals.Instance.onTakeDamagel += OnTakeDamage;
 
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
@@ -70,6 +73,7 @@ namespace Assets.Scripts.Managers
             PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerUseTurret;
             PlayerSignals.Instance.onPlayerLeaveTurretArea -= OnPlayerLeaveTurret;
             PlayerSignals.Instance.onCheackCurrentTargetKilled -= shootController.OnCheackCurrentTargetKilled;
+            PlayerSignals.Instance.onTakeDamagel -= OnTakeDamage;
 
 
             CoreGameSignals.Instance.onPlay -= OnPlay;
@@ -135,11 +139,24 @@ namespace Assets.Scripts.Managers
             movementController.UpdateInputValue(inputParams);
         }
 
+        private void OnTakeDamage(int damage)
+        {
+            if (Health >= 0)
+            {
+                Health -= damage;
+            }
+            HealthController.SetHealthBar(Health);
+        }
+
+        public void UseTurret() => animationController.UseTurret();
+
         private Transform OnGetPlayerTransfrom() => transform;
 
         private PlayerState OnGetPlayerState() => State;
 
         public void ActivatePistol(bool activate) => pistol.SetActive(activate);
+
+        public void PlayRunAnimation() => animationController.PlayRunAnimation();
 
         public void EnableAimLayer() => animationController.EnableAimLayer();
 

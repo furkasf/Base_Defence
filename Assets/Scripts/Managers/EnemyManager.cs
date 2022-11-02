@@ -1,8 +1,9 @@
-﻿using Assets.Scripts.Controllers;
-using Assets.Scripts.Controllers.Enemy;
+﻿using Assets.Scripts.Controllers.Enemy;
+using Assets.Scripts.Extentions;
 using Assets.Scripts.Signals;
 using Controllers;
 using Enums;
+using Extentions;
 using FSM;
 using Signals;
 using UnityEngine;
@@ -15,7 +16,9 @@ namespace Assets.Scripts.Managers
         public Transform PlayerPossition;
         public Transform target;
 
+        public bool IsPLayerFollowAble;
         public bool IsPlayerAttackable;
+
         public int Heath = 15;
 
         [SerializeField] private BaseStateMachine stateMachine;
@@ -35,12 +38,7 @@ namespace Assets.Scripts.Managers
         private void Start()
         {
             GetReferences();
-           // _animator.SetTrigger("Walking");
-            _agent.enabled = true;
-            stateMachine.enabled = true;
-           
         }
-
 
         public void GetDamage()
         {
@@ -55,9 +53,8 @@ namespace Assets.Scripts.Managers
 
         public void MoveToTargetPoint()
         {
-            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Walking") || _agent.speed != _animator.speed)
+            if (!_agent.hasPath)
             {
-                _agent.speed = _animator.speed + .5f;
                 _animator.SetTrigger("Walking");
                 _agent.SetDestination(target.position);
             }
@@ -65,45 +62,65 @@ namespace Assets.Scripts.Managers
 
         public void ChaseThePlayer()
         {
-            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Walking") || _agent.speed == _animator.speed)
+            if (!_animator.AnimatorIsPlaying())
             {
-                _agent.speed = _animator.speed + .5f;
                 _animator.SetTrigger("Walking");
-                _agent.SetDestination(PlayerPossition.position);
             }
+
+            Debug.Log("inPlayer Chease state" +
+                "");
+            _agent.SetDestination(PlayerPossition.position);
         }
 
         public void AttackTheTarget()
         {
-            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("AttackAnim"))
+            if (!_animator.AnimatorIsPlaying())
             {
                 _animator.SetTrigger("Attack");
+
+                if (PlayerSignals.Instance.onGetPlayerState() == Enums.PlayerState.Outside && Vector3.Distance(transform.position, PlayerPossition.position) < 1.2f)
+                {
+                    PlayerSignals.Instance.onTakeDamagel(5);
+                }
+
                 Debug.Log("attack State");
             }
         }
 
         public void Dead()
         {
-            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
-            {
-                PlayerSignals.Instance.onCheackCurrentTargetKilled(transform);
-                DropMoney();
-                stateMachine.enabled = false;
-                _agent.isStopped = true;
-                _animator.SetTrigger("Death");
-                meshController.CloseSaturation();
-            }
+            DropMoney();
+
+            PlayerSignals.Instance.onCheackCurrentTargetKilled(transform);
+            stateMachine.enabled = false;
+            _agent.isStopped = true;
+            _animator.SetTrigger("Death");
+            meshController.CloseSaturation();
         }
 
         #endregion Actions
 
         #region Conditions
 
-        public bool CheackDistanceWithPlayer() => Vector3.Distance(PlayerPossition.position, transform.position) <= 5;
+        public bool CheackPlayerFollowAble()
+        {
+            if (PlayerSignals.Instance.onGetPlayerState() == Enums.PlayerState.Outside)
+            {
+                return Vector3.Distance(transform.position, PlayerPossition.position) < 5;
+            }
+            return false;
+        }
 
-        public bool CheakTargerAttackAbel() => Vector3.Distance(PlayerPossition.position, transform.position) <= 1f;
+        public bool CheakTargerAttackAbel()
+        {
+            if (PlayerSignals.Instance.onGetPlayerState() == Enums.PlayerState.Outside)
+            {
+                return Vector3.Distance(transform.position, PlayerPossition.position) < .5f;
+            }
+            return false;
+        }
 
-        public bool CheackEnemyReachTheTarget() => Vector3.Distance(target.position, transform.position) <= 2f;
+        public bool CheackEnemyReachTheTarget() => _agent.AgentReachTheTarget();
 
         public bool IsDead() => Heath <= 0;
 
@@ -111,19 +128,18 @@ namespace Assets.Scripts.Managers
 
         private void GetReferences()
         {
-            if (PlayerPossition == null)
-            {
-                PlayerPossition = GameObject.FindGameObjectWithTag("Player").transform;
-            }
+            PlayerPossition = PlayerSignals.Instance.onGetPlayerTransfrom();
             target = BaseSignals.Instance.OnGetRandomPoint();
+            _agent.enabled = true;
+            stateMachine.enabled = true;
         }
 
         private void DropMoney()
         {
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 GameObject money = PoolSignals.onGetObjectFormPool(PoolAbleType.Money.ToString());
-                money.transform.position = transform.position + new Vector3(0, 5,0 ) ;
+                money.transform.position = transform.position + new Vector3(0, 5, 0);
             }
         }
 
@@ -135,7 +151,7 @@ namespace Assets.Scripts.Managers
             Debug.Log("pool worked");
             PlayerSignals.Instance.onCheackCurrentTargetKilled(transform);
             TurretSignals.Instance.onEnemyDead(transform);
-            stateMachine.enabled = true; 
+            stateMachine.enabled = true;
             Heath = 15;
             meshController.OpenSaturation();
             PoolSignals.onPutObjectBackToPool(gameObject, "Enemy");

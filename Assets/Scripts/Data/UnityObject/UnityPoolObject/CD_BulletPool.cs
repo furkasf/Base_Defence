@@ -14,4 +14,5 @@ namespace Assets.Scripts.Enums.UnityObject.UnityPoolObject
             IsExtensible = true;
         }
     }
+   
 }

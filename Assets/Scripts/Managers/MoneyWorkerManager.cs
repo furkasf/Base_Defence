@@ -40,6 +40,16 @@ namespace Assets.Scripts.Managers
 
         #region Actions
 
+        private void OnEnable()
+        {
+            BaseSignals.Instance.onGetReadius += OnGetRadius;
+        }
+
+        private void OnDisable()
+        {
+            BaseSignals.Instance.onGetReadius -= OnGetRadius;
+        }
+
         public void GoToBase()
         {
             if (!_agent.hasPath)
@@ -55,6 +65,8 @@ namespace Assets.Scripts.Managers
                 _agent.SetDestination(outsideLocation.position);
             }
         }
+
+        private float OnGetRadius() => _sphereCollider.radius;
 
         public void SearchMoney() => _sphereCollider.radius = 20f;
 

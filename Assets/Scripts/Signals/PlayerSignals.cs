@@ -12,6 +12,7 @@ namespace Signals
         public Action onGetPlayerSpeed;
         public Action onPlayerEnterTurretArea;
         public Action onPlayerLeaveTurretArea;
+        public Action<int> onTakeDamagel;
         public Action<Transform> onCheackCurrentTargetKilled;
         public Func<PlayerState> onGetPlayerState;
         public Action<Transform> onAddEnemyToList;

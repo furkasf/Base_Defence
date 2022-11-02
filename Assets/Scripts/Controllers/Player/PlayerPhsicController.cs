@@ -30,6 +30,16 @@ namespace Assets.Scripts.Controllers.Player
                 manager.State = PlayerState.Inside;
                 manager.DisableAimLayer();
                 manager.ActivatePistol(false);
+                if (manager.Health < 100)
+                {
+                    manager.HealthController.gameObject.SetActive(true);
+                    manager.HealthController.Heal();
+                }
+                else
+                {
+                    manager.HealthController.gameObject.SetActive(false);
+
+                }
             }
             if (other.CompareTag("GateOutside"))
             {
@@ -37,6 +47,7 @@ namespace Assets.Scripts.Controllers.Player
                 manager.State = PlayerState.Outside;
                 manager.EnableAimLayer();
                 manager.ActivatePistol(true);
+                manager.HealthController.gameObject.SetActive(true);
             }
             if(other.CompareTag("Money"))
             {
@@ -51,8 +62,14 @@ namespace Assets.Scripts.Controllers.Player
 
             if(other.CompareTag("Turret"))
             {
-                PlayerSignals.Instance.onPlayerEnterTurretArea();
+                if(!TurretSignals.Instance.onCheackTurretWorkerIsExist())
+                {
+                    PlayerSignals.Instance.onPlayerEnterTurretArea();
+                    manager.UseTurret();
+                }
+                
             }
         }
+
     }
 }
